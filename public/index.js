@@ -1,10 +1,15 @@
 const map = L.map("map1");
+const attrib = "Map data copyright OpenStreetMap contributors, Open Database Licence" ;
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", 
+        {attribution: attrib}).addTo(map);
+map.setView([50.90839,-1.40037],13)
+
 onStart()
 async function onStart(){
     try{
     const response = await fetch (`http://localhost:3030/login`)
     const loginCheck = await response.json()
-    
     if (loginCheck.username != null){
         onLogin(loginCheck.username)
     } else{
@@ -20,12 +25,6 @@ async function ajaxSearch(regionIn){
     try{
         const response = await fetch(`http://localhost:3030/poi/region/${regionIn}`);
         const pois = await response.json();
-
-        const attrib = "Map data copyright OpenStreetMap contributors, Open Database Licence" ;
-
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", 
-        {attribution: attrib}).addTo(map);
-        
         pois.forEach(poi => {
             const loc = [poi.lat,poi.lon]
             const marker1 = L.marker(loc).addTo(map)
@@ -53,8 +52,8 @@ async function ajaxSearch(regionIn){
             node1.appendChild(recbtn)
             document.getElementById("results1").appendChild(node1)
             recbtn.addEventListener("click",recPoi.bind(this,poi))
-
         })
+        return pois
     } catch(e){
         alert(`There was a error: ${e}`)
     }
@@ -171,10 +170,10 @@ async function logout(){
     
     function onLogout() {
         // fill the div with the original form
-        document.getElementById('loginResults').innerHTML = `<h1>Login</h1>
-        Username <input id="username"/><br>
-        Password <input id="password"/>
-        <input type="submit" id="login" value="Login" />`
+        document.getElementById('loginResults').innerHTML = `<h1 class="lgnS">Login</h1>
+        Username <input  id="username"/><br>
+        Password <input  id="password"/>
+        <input type="submit"  id="login" value="Login" />`
     
         // add the login event handler
         document.getElementById('login').addEventListener('click', ()=>{
@@ -189,10 +188,10 @@ async function logout(){
 
 
 
-document.getElementById('regionsearch').addEventListener('click',()=>{
-    const regionIn = document.getElementById('regionName').value
-    ajaxSearch(regionIn)
-})
+//document.getElementById('regionsearch').addEventListener('click',()=>{
+   // const regionIn = document.getElementById('regionName').value
+   // ajaxSearch(regionIn)
+//})
 
 
 

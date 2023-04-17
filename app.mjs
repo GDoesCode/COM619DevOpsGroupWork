@@ -8,7 +8,8 @@ const SqliteStore = betterSqlite3Session(expressSession,sessDb)
 
 const app = express()
 import 'dotenv/config'
-const db = new Database("C:\\users\\mac\\pointsofinterest.db");
+
+import db from './database/db.mjs'
 
 app.use(expressSession({
     store: new SqliteStore(),
@@ -72,15 +73,7 @@ app.use( (req,res,next) => {
 import poiRouter from './routes/poi.mjs';
 app.use('/poi',poiRouter)
 
-app.get('/regionSearch', (req,res) => {
-    res.sendFile("C:/users/mac/COM518_AE1/public/views/regionSearch.html");
-})
-app.get('/addPOI', (req,res) => {
-    res.sendFile("C:/users/mac/COM518_AE1/public/views/addPOI.html");
-})
-app.get('/reviewPOI', (req,res) => {
-    res.sendFile("C:/users/mac/COM518_AE1/public/views/reviewPOI.html");
-})
+
 
 
 
