@@ -23,4 +23,6 @@ poiRouter.post('/recommend/:id', pController.recommendPOI.bind(pController));
 
 poiRouter.get('/check/:id',pController.checkPOIID.bind(pController))
 
+poiRouter.post('/review',pController.reviewPOI.bind(pController))
+
 export default poiRouter

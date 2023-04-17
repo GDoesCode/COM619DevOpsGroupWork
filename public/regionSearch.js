@@ -29,7 +29,19 @@ async function ajaxSearch(regionIn){
         pois.forEach(poi => {
             const loc = [poi.lat,poi.lon]
             const marker1 = L.marker(loc).addTo(map)
-            const text = marker1.bindPopup(`Name:${poi.name}    Description:${poi.description} <input id="popRevxtx"><input type="button" value="Review This POI" id="popReview" />`)
+            var node2 = document.createElement("p")
+            var text2 = document.createTextNode(`Name:${poi.name}    Description:${poi.description} `)
+            var revTxt = document.createElement("input")
+            revTxt.setAttribute("id","revTxt")
+            var revBtn = document.createElement("input")
+            revBtn.setAttribute("type","button")
+            revBtn.setAttribute("value","Review")
+            revBtn.setAttribute("id","revBtn")
+            node2.appendChild(text2)
+            node2.appendChild(revTxt)
+            node2.appendChild(revBtn)
+            marker1.bindPopup(node2)
+            revBtn.addEventListener("click",revPoi.bind(this,poi.id))
             map.setView(poi,10)
             var node1 = document.createElement("p")
             var text1 = document.createTextNode(`Name: ${poi.name}      Type: ${poi.type}       Country: ${poi.country}     Region: ${poi.region}       Longitude:${poi.lon}        Latitude:${poi.lat}         Description: ${poi.description}        Recommendations:${poi.recommendations}`)
@@ -85,6 +97,31 @@ async function recPoi(poi){
         }
     } catch(e) {
         alert(`There was an error111: ${e}`)
+    }
+}
+
+async function revPoi(poi_id){
+    const revTxt = document.getElementById('revTxt').value
+    try{
+            
+            const poiReview = {
+                poi_id : poi_id,
+                review : revTxt
+            }
+            const response1 = await fetch(`http://localhost:3030/poi/review`,{
+                method:"POST",
+                headers:{
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(poiReview)
+            })
+            if (response1.status == 200){
+                alert("successfully reviewed")
+            } else{
+                alert(`Error! Make sure you're logged in!`)
+            }
+        } catch(e){
+        alert(`There was an error: ${e}`)
     }
 }
 
@@ -156,6 +193,8 @@ document.getElementById('regionsearch').addEventListener('click',()=>{
     const regionIn = document.getElementById('regionName').value
     ajaxSearch(regionIn)
 })
+
+
 
 
 map.on("click", e => {

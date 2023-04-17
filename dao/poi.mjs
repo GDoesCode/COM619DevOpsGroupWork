@@ -27,6 +27,7 @@ checkPOIID(idin){
     }
 }
 
+
 createPOI(nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendationsIn){
         const stmt = this.db.prepare(`INSERT INTO pointsofinterest(name,type,country,region,lon,lat,description,recommendations) VALUES(?,?,?,?,?,?,?,?)`)
         const result = stmt.run(nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendationsIn)
@@ -50,5 +51,8 @@ recommendPOI(idIn){
     
 }
 }
+
+
+
 
 export default POIDao

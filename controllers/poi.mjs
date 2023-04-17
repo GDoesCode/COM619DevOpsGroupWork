@@ -1,8 +1,10 @@
 import POIDao from '../dao/poi.mjs'
+import ReviewDao from '../dao/review.mjs'
 
 class PoiController{
     constructor(db){
         this.dao = new POIDao(db,"pointsofinterest")
+        this.dao2 = new ReviewDao(db,"rev")
     }
 
 findPOIByRegion(req,res){
@@ -24,6 +26,7 @@ checkPOIID(req,res){
         res.status(500).json({error:error})
     }
 }
+
 
 
 
@@ -58,6 +61,24 @@ recommendPOI(req,res){
         
     }
 }
+reviewPOI(req,res){
+    try{
+        if (this.dao.checkPOIID(req.body.poi_id) == true){
+        const result = this.dao2.reviewPOI(req.body.poi_id,req.body.review)
+        if(result == true){
+        res.status(200).json({success:1})}
+        else{
+            res.status(404).json({error:error})
+        }
+    }
+    else{
+        res.status(404).json({error:"POI ID doesn't exist"})
+    }
+    } catch(error){
+        throw error
+    }
+}
+
 }
 
 export default PoiController
