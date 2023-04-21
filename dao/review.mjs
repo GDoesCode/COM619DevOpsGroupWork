@@ -8,7 +8,7 @@ class ReviewDao{
 reviewPOI(idIn,reviewIn) {
     const stmt = this.db.prepare("INSERT INTO poi_reviews(poi_id,review) VALUES(?,?)")
     const result = stmt.run(idIn,reviewIn)
-    return true
+    return result.changes == 1
 }
 }
 

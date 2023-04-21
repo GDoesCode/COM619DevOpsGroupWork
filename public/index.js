@@ -1,9 +1,11 @@
-const map = L.map("map1");
+/*const map = L.map("map1");
 const attrib = "Map data copyright OpenStreetMap contributors, Open Database Licence" ;
 
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", 
+        L.tileLayer("", 
         {attribution: attrib}).addTo(map);
-map.setView([50.90839,-1.40037],13)
+map.setView([50.90839,-1.40037],13)*/
+
+//const { response } = require("express");
 
 onStart()
 async function onStart(){
@@ -25,7 +27,7 @@ async function ajaxSearch(regionIn){
     try{
         const response = await fetch(`http://localhost:3030/poi/region/${regionIn}`);
         const pois = await response.json();
-        pois.forEach(poi => {
+        /*pois.forEach(poi => {
             const loc = [poi.lat,poi.lon]
             const marker1 = L.marker(loc).addTo(map)
             var node2 = document.createElement("p")
@@ -41,7 +43,7 @@ async function ajaxSearch(regionIn){
             node2.appendChild(revBtn)
             marker1.bindPopup(node2)
             revBtn.addEventListener("click",revPoi.bind(this,poi.id))
-            map.setView(poi,10)
+            
             var node1 = document.createElement("p")
             var text1 = document.createTextNode(`Name: ${poi.name}      Type: ${poi.type}       Country: ${poi.country}     Region: ${poi.region}       Longitude:${poi.lon}        Latitude:${poi.lat}         Description: ${poi.description}        Recommendations:${poi.recommendations}`)
             const recbtn = document.createElement("input")
@@ -52,7 +54,7 @@ async function ajaxSearch(regionIn){
             node1.appendChild(recbtn)
             document.getElementById("results1").appendChild(node1)
             recbtn.addEventListener("click",recPoi.bind(this,poi))
-        })
+        })*/
         return pois
     } catch(e){
         alert(`There was a error: ${e}`)
@@ -68,16 +70,7 @@ async function addPOI(poiIn){
             },
             body: JSON.stringify(poiIn)
         })
-        if (response.status == 200) {
-            const marker1 = L.marker([poiIn.lat,poiIn.lon]).addTo(map)
-            const text = `${poiIn.name}     Description: ${poiIn.description} `
-            marker1.bindPopup(text)
-            alert("POI Added Successfully")
-            
-        }
-        else {
-            alert(`Error adding POI ${response.status}`)
-        }
+        return response
         } catch(e) {
             alert(`There was an error: ${e}`)
         }
@@ -101,8 +94,7 @@ async function recPoi(poi){
 
 async function revPoi(poi_id){
     const revTxt = document.getElementById('revTxt').value
-    try{
-            
+    try{ 
             const poiReview = {
                 poi_id : poi_id,
                 review : revTxt
@@ -195,7 +187,7 @@ async function logout(){
 
 
 
-
+/*
 map.on("click", e => {
     
     const nameIn = prompt('Enter Name of POI:')
@@ -214,4 +206,4 @@ map.on("click", e => {
         recommendations : 0
     }
     addPOI(newPOI)
-}) 
+}) */
