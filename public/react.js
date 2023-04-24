@@ -1,10 +1,8 @@
 function AppWidget({title}){
     const [pois,setPOIs] = React.useState([])
-
     function updatePOIs(pois){
         setPOIs(pois)
     }
-
     return (
         <div>
             <InputRegion title={title} passBackUserInput={updatePOIs}/>
@@ -12,8 +10,6 @@ function AppWidget({title}){
             <ResultsWidget pois={pois}/>
         </div>
     )
-
-
 }
 
 
@@ -83,9 +79,11 @@ function MapWidget({pois}){
             revBtn.setAttribute("type","button")
             revBtn.setAttribute("value","Review")
             revBtn.setAttribute("id","revBtn")
+            var uploadFrm = `<form method='post' enctype='multipart/form-data'> Select your File: <input type='file' id='poiPhotos' name='poiPhoto'/> <input type='button' id='uploadBtn' value='Upload' onClick='uploadPhoto()'/><div id="photo"><div/></form>`
             node2.appendChild(text2)
             node2.appendChild(revTxt)
             node2.appendChild(revBtn)
+            node2.innerHTML +=  uploadFrm
             marker1.bindPopup(node2)
             revBtn.addEventListener("click",revPoi.bind(this,poi.id))
     });

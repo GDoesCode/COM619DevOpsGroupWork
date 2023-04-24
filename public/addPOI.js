@@ -31,4 +31,5 @@ document.getElementById('addPOI').addEventListener('click', () => {
     }
     addPOI(newPOI);
 })
+
    

@@ -6,7 +6,7 @@ const attrib = "Map data copyright OpenStreetMap contributors, Open Database Lic
 map.setView([50.90839,-1.40037],13)*/
 
 //const { response } = require("express");
-
+import * as fs from 'fs/promises';
 onStart()
 async function onStart(){
     try{
@@ -116,6 +116,39 @@ async function revPoi(poi_id){
     }
 }
 
+async function uploadPhoto(){
+    try{
+    const photoFiles = document.getElementById("poiPhotos").files;
+    if(photoFiles == 0){
+        alert('No Files selected!')
+    } else{
+        const formData = new FormData();
+        formData.append("poiPhoto",photoFiles[0])
+        const response = await fetch('http://localhost:3030/photo/upload',{
+            method:"POST",
+            body: formData
+        })
+        if(response.status == 200){
+            alert("successfully uploaded")
+            const fp = await fs.open(photoFiles.name , 'r')
+            const buffer = Buffer.alloc(10)
+            const {bytesRead} = await fp.read({buffer: buffer})
+            console.log(buffer)
+            if(bytesRead != 10){
+                console.error("Less than 10 bytes")
+                process.exit(1)
+            }
+            document.getElementById('photo').innerHTML = bytesRead
+        } else{
+            alert(`unlucky m8`)
+        }
+    }
+    }
+    catch(error){
+        alert(`error: ${error}`)
+    }
+}
+
 async function login(userDetails){
     try{
         const response = await fetch(`http://localhost:3030/login`,{
@@ -164,7 +197,7 @@ async function logout(){
         // fill the div with the original form
         document.getElementById('loginResults').innerHTML = `<h1 class="lgnS">Login</h1>
         Username <input  id="username"/><br>
-        Password <input  id="password"/>
+        Password <input type="password"  id="password"/>
         <input type="submit"  id="login" value="Login" />`
     
         // add the login event handler

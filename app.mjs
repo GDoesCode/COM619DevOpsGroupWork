@@ -2,6 +2,7 @@ import express, { urlencoded } from 'express';
 import Database from 'better-sqlite3';
 import expressSession from 'express-session'
 import betterSqlite3Session from 'express-session-better-sqlite3'
+import fileUpload from 'express-fileupload'
 
 const sessDb = new Database('session.db')
 const SqliteStore = betterSqlite3Session(expressSession,sessDb)
@@ -11,6 +12,22 @@ import 'dotenv/config'
 
 import db from './database/db.mjs'
 
+app.use(fileUpload({
+    useTempFiles:true,
+    tempFileDir:process.env.TMPDIR,
+    limits:{fileSize:process.env.UPLOAD_LIMIT_IN_MB * 1024 * 1024}
+}))
+
+app.post('/photo/upload', async(req,res) =>{
+    try{
+        const fileName = req.files.poiPhoto.name;
+        await req.files.poiPhoto.mv(`${process.env.PERMANENT_UPLOAD_DIR}/${fileName}`)
+        res.status(200).json({success:1})
+    } catch(e){
+        throw e;
+        res.status(500).json({error:e})
+    }
+})
 app.use(expressSession({
     store: new SqliteStore(),
     secret:'Random',

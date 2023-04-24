@@ -3,9 +3,6 @@ class POIDao{
         this.db = db
         this.table = table
     }
-
-
-
 findPOIByRegion(regionIn){
         const stmt = this.db.prepare("SELECT * FROM pointsofinterest WHERE region=?")
         const rows = stmt.all(regionIn)
