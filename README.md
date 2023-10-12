@@ -4,6 +4,6 @@ Group work for COM 619
 Team consists of:
 - Danial Agha
 - Gaetano Archer
-- Josh Clark
+- Josh Clarke
 - Jacob Shattock
 - Muhammad Sajid
