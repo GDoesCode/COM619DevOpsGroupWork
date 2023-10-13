@@ -18,9 +18,9 @@ app.use(fileUpload({
     limits:{fileSize:process.env.UPLOAD_LIMIT_IN_MB * 1024 * 1024}
 }))
 
-app.post('/photo/upload', async(req,res) =>{
+app.post('/photo/upload/:id', async(req,res) =>{
     try{
-        const fileName = req.files.poiPhoto.name;
+        const fileName = req.params.id + req.files.poiPhoto.name ;
         await req.files.poiPhoto.mv(`${process.env.PERMANENT_UPLOAD_DIR}/${fileName}`)
         res.status(200).json({success:1})
     } catch(e){
@@ -94,4 +94,4 @@ app.use('/poi',poiRouter)
 
 
 
-app.listen(3030)
+app.listen(3000)

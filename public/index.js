@@ -6,11 +6,10 @@ const attrib = "Map data copyright OpenStreetMap contributors, Open Database Lic
 map.setView([50.90839,-1.40037],13)*/
 
 //const { response } = require("express");
-import * as fs from 'fs/promises';
 onStart()
 async function onStart(){
     try{
-    const response = await fetch (`http://localhost:3030/login`)
+    const response = await fetch (`http://localhost:3000/login`)
     const loginCheck = await response.json()
     if (loginCheck.username != null){
         onLogin(loginCheck.username)
@@ -25,7 +24,9 @@ async function onStart(){
 
 async function ajaxSearch(regionIn){
     try{
-        const response = await fetch(`http://localhost:3030/poi/region/${regionIn}`);
+        if (regionIn != null){
+            if(regionIn != ""){
+        const response = await fetch(`http://localhost:3000/poi/region/${regionIn}`);
         const pois = await response.json();
         /*pois.forEach(poi => {
             const loc = [poi.lat,poi.lon]
@@ -56,6 +57,14 @@ async function ajaxSearch(regionIn){
             recbtn.addEventListener("click",recPoi.bind(this,poi))
         })*/
         return pois
+    }
+    else{
+        alert("Blank Region. Reload The Page and Try Again")
+    }
+    }
+    else{
+        alert("Blank Region. Reload The Page and Try Again")
+    }
     } catch(e){
         alert(`There was a error: ${e}`)
     }
@@ -63,7 +72,7 @@ async function ajaxSearch(regionIn){
 
 async function addPOI(poiIn){
     try{
-        const response = await fetch(`http://localhost:3030/poi/create`,{
+        const response = await fetch(`http://localhost:3000/poi/create`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -78,7 +87,7 @@ async function addPOI(poiIn){
 
 async function recPoi(poi){
     try{
-        const response = await fetch(`http://localhost:3030/poi/recommend/${poi.id}`,{
+        const response = await fetch(`http://localhost:3000/poi/recommend/${poi.id}`,{
             method:"POST"
         })
         if (response.status != 200) {
@@ -99,7 +108,7 @@ async function revPoi(poi_id){
                 poi_id : poi_id,
                 review : revTxt
             }
-            const response1 = await fetch(`http://localhost:3030/poi/review`,{
+            const response1 = await fetch(`http://localhost:3000/poi/review`,{
                 method:"POST",
                 headers:{
                     'Content-Type' : 'application/json'
@@ -116,31 +125,26 @@ async function revPoi(poi_id){
     }
 }
 
-async function uploadPhoto(){
+async function uploadPhoto(POIID){
     try{
     const photoFiles = document.getElementById("poiPhotos").files;
     if(photoFiles == 0){
         alert('No Files selected!')
     } else{
         const formData = new FormData();
-        formData.append("poiPhoto",photoFiles[0])
-        const response = await fetch('http://localhost:3030/photo/upload',{
+        formData.append(`poiPhoto`,photoFiles[0])
+        const response = await fetch(`http://localhost:3000/photo/upload/${POIID}`,{
             method:"POST",
             body: formData
         })
         if(response.status == 200){
+            var src = document.getElementById('photo')
+            var img = document.createElement("img")
+            img.src = `http://localhost:3000/uploadPics/${POIID+photoFiles[0].name}`
+            src.appendChild(img)
             alert("successfully uploaded")
-            const fp = await fs.open(photoFiles.name , 'r')
-            const buffer = Buffer.alloc(10)
-            const {bytesRead} = await fp.read({buffer: buffer})
-            console.log(buffer)
-            if(bytesRead != 10){
-                console.error("Less than 10 bytes")
-                process.exit(1)
-            }
-            document.getElementById('photo').innerHTML = bytesRead
         } else{
-            alert(`unlucky m8`)
+            alert(`${response.status} : ${response.error}`)
         }
     }
     }
@@ -151,7 +155,9 @@ async function uploadPhoto(){
 
 async function login(userDetails){
     try{
-        const response = await fetch(`http://localhost:3030/login`,{
+        if (userDetails.username != null){
+            if (userDetails.password != null){
+        const response = await fetch(`http://localhost:3000/login`,{
             method:"POST",
             headers: {
                 'Content-Type' : 'application/json'
@@ -161,16 +167,23 @@ async function login(userDetails){
         if (response.status == 200){
             onLogin(userDetails.username)
         } else{
-            alert(`${response.status}`)
+            alert(`${response.status} : Error Logging In`)
         }
-
+    }
+    else{
+        alert("Blank Password")
+    }
+    }
+    else{
+        alert("Blank Username")
+    }
     } catch(e){
         alert(`There was an error3: ${e}`)
     }
 }
 async function logout(){
     try{
-    const response = await fetch(`http://localhost:3030/logout`, {method:"POST"})
+    const response = await fetch(`http://localhost:3000/logout`, {method:"POST"})
     document.getElementById('loginResults').innerHTML = `Logged Out`
     } catch(e){
         alert(`Error Logging out`)
@@ -184,7 +197,7 @@ async function logout(){
         try{
         document.getElementById('loginResults').innerHTML = `Logged In as ${username}.  <input type='button' value='Logout' id='logoutbtn' />`
         document.getElementById('logoutbtn').addEventListener('click',async()=>{
-        const response = await fetch(`http://localhost:3030/logout`, {method:"POST"})
+        const response = await fetch(`http://localhost:3000/logout`, {method:"POST"})
         onLogout()
         } )
         }catch(e){

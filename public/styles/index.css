@@ -8,7 +8,7 @@ h1{
     text-decoration: underline;
 }
 strong{
-    font-size: 25px;
+    font-size: 12px;
 }
 .addS{
     background-color: gainsboro;
@@ -18,6 +18,24 @@ strong{
     right:0;
     top:0;
     
+}
+#results1{
+    float:right;
+    position: relative;
+    top: 30px;
+    right: 20px;
+   
+}
+#root{
+    float:left;
+    position:relative;
+    max-width:700px;
+}
+
+img{
+    max-width: 50%;
+    max-height: 50%;
+    display: block;
 }
 .lgnS{
     position: relative;

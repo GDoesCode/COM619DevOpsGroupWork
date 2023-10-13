@@ -1,6 +1,6 @@
 async function addPOI(poiIn){
     try{
-        const response = await fetch(`http://localhost:3030/poi/create`,{
+        const response = await fetch(`http://localhost:3000/poi/create`,{
             method:'POST',
             headers:{
                 'Content-Type' : 'application/json'
