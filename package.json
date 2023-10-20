@@ -1,5 +1,13 @@
 {
-  "dependencies": {
+    "name": "com619",
+    "version": "1.0.0",
+    "description": "COM619 WebApp",
+    "author": "DevOpsGroup",
+    "main": "app.mjs",
+    "scripts": {
+	"start": "node app.mjs"
+  },
+    "dependencies": {
     "better-sqlite3": "^8.7.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
@@ -7,6 +15,7 @@
     "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
     "express-session-better-sqlite3": "^1.2.1",
+    "grunt": "^1.6.1",
     "html": "^1.0.0",
     "leaflet": "^1.9.3"
   }

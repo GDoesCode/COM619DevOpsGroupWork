@@ -1,0 +1,11 @@
+To Build:
+docker build . -t com619 --network=host
+
+To Run:
+sudo docker run -p 8080:8080 -d com619
+
+Access using the azure DNS with port 8080
+
+To Stop:
+docker ps (get the name of the container under NAMES)
+docker stop <Container name>

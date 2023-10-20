@@ -1,10 +1,19 @@
-FROM jetty:9.4-jre11
+FROM node:16
 
-# Install Cargo
-## installs cargo deployer on standard jetty see https://github.com/mthenw/docker-jetty-cargo/blob/master/Dockerfile
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --omit=dev
+
+# Bundle app source
+COPY . .
 
 EXPOSE 8080
-
-ADD --chown=jetty:jetty https://repo1.maven.org/maven2/org/codehaus/cargo/cargo-jetty-7-to-jetty-9-deployer/1.9.9/cargo-jetty-7-to-jetty-9-deployer-1.9.9.war /var/lib/jetty/webapps/cargo-jetty-7-to-jetty-9-deployer-1.9.9.war
-
-
+CMD [ "node", "app.mjs" ]
