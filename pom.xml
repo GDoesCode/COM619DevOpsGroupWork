@@ -4,16 +4,16 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>net.map</groupId>
-   <artifactId>spring-boot-leaflet-starter</artifactId>
+   <artifactId>COM619DevOpsGroupWork</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <packaging>war</packaging>
 
-   <name>spring-boot-leaflet-starter</name>
-   <description>Demo project for Spring Boot</description>
+   <name>COM619DevOpsGroupWork</name>
+   <description>Map project for COM619</description>
 
    <parent>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-parent</artifactId>
+      <groupId>org.com619groupwork.boot</groupId>
+      <artifactId>com619groupworkparent</artifactId>
       <version>2.7.16</version>
       <relativePath /> <!-- lookup parent from repository -->
    </parent>
@@ -38,46 +38,31 @@
 
    <dependencies>
       <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-data-jpa</artifactId>
+         <groupId>org.com619groupwork.boot</groupId>
+         <artifactId>com619groupworkdata-jpa</artifactId>
          <exclusions>
             <exclusion>
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-starter-logging</artifactId>
+               <groupId>org.com619groupwork.boot</groupId>
+               <artifactId>com619groupwork-logging</artifactId>
             </exclusion>
          </exclusions>
       </dependency>
-      <!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> </dependency> -->
 
-
-      <!-- <dependency> -->
-      <!-- <groupId>org.springframework.boot</groupId> -->
-      <!-- <artifactId>spring-boot-starter-thymeleaf</artifactId> -->
-      <!-- <exclusions> -->
-      <!-- <exclusion> -->
-      <!-- <groupId>org.springframework.boot</groupId> -->
-      <!-- <artifactId>spring-boot-starter-logging</artifactId> -->
-      <!-- </exclusion> -->
-      <!-- </exclusions> -->
-      <!-- </dependency> -->
-
-
-      <!-- spring boot dependencies -->
       <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-web</artifactId>
+         <groupId>org.com619groupwork.boot</groupId>
+         <artifactId>com619groupwork-web</artifactId>
          <exclusions>
             <exclusion>
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-starter-logging</artifactId>
+               <groupId>org.com619groupwork.boot</groupId>
+               <artifactId>com619groupwork-logging</artifactId>
             </exclusion>
          </exclusions>
       </dependency>
 
       <!-- Add Log4j2 Dependency -->
       <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-log4j2</artifactId>
+         <groupId>org.com619groupwork.boot</groupId>
+         <artifactId>com619groupwork-log4j2</artifactId>
       </dependency>
 
       <!-- tomcat jsp dependencies -->
@@ -88,13 +73,13 @@
       </dependency>
 
       <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-tomcat</artifactId>
+         <groupId>org.com619groupwork.boot</groupId>
+         <artifactId>com619groupwork-tomcat</artifactId>
          <scope>provided</scope>
          <exclusions>
             <exclusion>
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-starter-logging</artifactId>
+               <groupId>org.com619groupwork.boot</groupId>
+               <artifactId>com619groupwork-logging</artifactId>
             </exclusion>
          </exclusions>
       </dependency>
@@ -120,13 +105,13 @@
       <!-- </dependency> -->
 
       <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-test</artifactId>
+         <groupId>org.com619groupwork.boot</groupId>
+         <artifactId>com619groupwork-test</artifactId>
          <scope>test</scope>
          <exclusions>
             <exclusion>
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-starter-logging</artifactId>
+               <groupId>org.com619groupwork.boot</groupId>
+               <artifactId>com619groupwork-logging</artifactId>
             </exclusion>
          </exclusions>
       </dependency>
@@ -178,8 +163,8 @@
    <build>
       <plugins>
          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
+            <groupId>org.com619groupwork.boot</groupId>
+            <artifactId>com619groupwork-maven-plugin</artifactId>
          </plugin>
 
          <plugin>
