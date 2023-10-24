@@ -3,8 +3,6 @@ import Database from 'better-sqlite3';
 import expressSession from 'express-session'
 import betterSqlite3Session from 'express-session-better-sqlite3'
 import fileUpload from 'express-fileupload'
-import * as fs from 'fs';
-import * as https from 'https';
 
 const sessDb = new Database('session.db')
 const SqliteStore = betterSqlite3Session(expressSession,sessDb)
@@ -95,15 +93,5 @@ app.use('/poi',poiRouter)
 
 
 
-https
-  .createServer(
-	{
-	 key: fs.readFileSync('key.pem', 
-			{encoding: 'utf-8'}),
-	 cert: fs.readFileSync('cert.pem',
-			{encoding: 'utf-8'})
-	},
-	app
-  )
-  .listen(8080)
-//app.listen(8080)
+
+app.listen(8080)
