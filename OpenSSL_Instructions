@@ -1,0 +1,12 @@
+Generate a private key:
+openssl genrsa -out key.pem
+
+Generate a Certificate Service Request (CSR)
+openssl req -new -key key.pem -out csr.pem
+
+Generate Certificate:
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+
+Build and run the webapp. Access with https:// prefix on port 8080
+
+DO NOT COMMIT OR PUSH TO GITHUB WITH THESE FILES IN THE PROJECT DIRECTORY - GIT DOES NOT LIKE IT. MOVE BACK IN AFTER PUSHING.
