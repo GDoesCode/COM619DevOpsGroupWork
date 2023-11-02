@@ -9,7 +9,7 @@ map.setView([50.90839,-1.40037],13)*/
 onStart()
 async function onStart(){
     try{
-    const response = await fetch (`http://localhost:8080/login`)
+    const response = await fetch (`https://localhost:8080/login`)
     const loginCheck = await response.json()
     if (loginCheck.username != null){
         onLogin(loginCheck.username)
@@ -26,7 +26,7 @@ async function ajaxSearch(regionIn){
     try{
         if (regionIn != null){
             if(regionIn != ""){
-        const response = await fetch(`http://localhost:8080/poi/region/${regionIn}`);
+        const response = await fetch(`https://localhost:8080/poi/region/${regionIn}`);
         const pois = await response.json();
         /*pois.forEach(poi => {
             const loc = [poi.lat,poi.lon]
@@ -72,7 +72,7 @@ async function ajaxSearch(regionIn){
 
 async function addPOI(poiIn){
     try{
-        const response = await fetch(`http://localhost:8080/poi/create`,{
+        const response = await fetch(`https://localhost:8080/poi/create`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -87,7 +87,7 @@ async function addPOI(poiIn){
 
 async function recPoi(poi){
     try{
-        const response = await fetch(`http://localhost:8080/poi/recommend/${poi.id}`,{
+        const response = await fetch(`https://localhost:8080/poi/recommend/${poi.id}`,{
             method:"POST"
         })
         if (response.status != 200) {
@@ -108,7 +108,7 @@ async function revPoi(poi_id){
                 poi_id : poi_id,
                 review : revTxt
             }
-            const response1 = await fetch(`http://localhost:8080/poi/review`,{
+            const response1 = await fetch(`https://localhost:8080/poi/review`,{
                 method:"POST",
                 headers:{
                     'Content-Type' : 'application/json'
@@ -133,14 +133,14 @@ async function uploadPhoto(POIID){
     } else{
         const formData = new FormData();
         formData.append(`poiPhoto`,photoFiles[0])
-        const response = await fetch(`http://localhost:8080/photo/upload/${POIID}`,{
+        const response = await fetch(`https://localhost:8080/photo/upload/${POIID}`,{
             method:"POST",
             body: formData
         })
         if(response.status == 200){
             var src = document.getElementById('photo')
             var img = document.createElement("img")
-            img.src = `http://localhost:8080/uploadPics/${POIID+photoFiles[0].name}`
+            img.src = `https://localhost:8080/uploadPics/${POIID+photoFiles[0].name}`
             src.appendChild(img)
             alert("successfully uploaded")
         } else{
@@ -157,7 +157,7 @@ async function login(userDetails){
     try{
         if (userDetails.username != null){
             if (userDetails.password != null){
-        const response = await fetch(`http://localhost:8080/login`,{
+        const response = await fetch(`https://localhost:8080/login`,{
             method:"POST",
             headers: {
                 'Content-Type' : 'application/json'
@@ -183,7 +183,7 @@ async function login(userDetails){
 }
 async function logout(){
     try{
-    const response = await fetch(`http://localhost:8080/logout`, {method:"POST"})
+    const response = await fetch(`https://localhost:8080/logout`, {method:"POST"})
     document.getElementById('loginResults').innerHTML = `Logged Out`
     } catch(e){
         alert(`Error Logging out`)
@@ -197,7 +197,7 @@ async function logout(){
         try{
         document.getElementById('loginResults').innerHTML = `Logged In as ${username}.  <input type='button' value='Logout' id='logoutbtn' />`
         document.getElementById('logoutbtn').addEventListener('click',async()=>{
-        const response = await fetch(`http://localhost:8080/logout`, {method:"POST"})
+        const response = await fetch(`https://localhost:8080/logout`, {method:"POST"})
         onLogout()
         } )
         }catch(e){
