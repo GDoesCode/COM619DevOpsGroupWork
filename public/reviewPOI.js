@@ -5,7 +5,7 @@ async function submitReview(poiID,reviewIn){
                 poi_id : poiID,
                 review : reviewIn
             }
-            const response1 = await fetch(`http://localhost:3000/poi/review`,{
+            const response1 = await fetch(`http://localhost:8080/poi/review`,{
                 method:"POST",
                 headers:{
                     'Content-Type' : 'application/json'
