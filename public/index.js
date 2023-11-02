@@ -21,6 +21,27 @@ async function onStart(){
         
     }
 }
+async function signUp(newUser) {
+    try {
+        const response = await fetch('http://localhost:3000/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+        });
+
+        if (response.status === 201) {
+            alert('Registration successful. You can now log in.');
+            // You can add code to clear the sign-up form or redirect to the login page.
+        } else {
+            const errorData = await response.json();
+            alert(`Registration failed: ${errorData.error}`);
+        }
+    } catch (e) {
+        alert(`There was an error: ${e}`);
+    }
+}
 
 async function ajaxSearch(regionIn){
     try{
@@ -28,34 +49,6 @@ async function ajaxSearch(regionIn){
             if(regionIn != ""){
         const response = await fetch(`https://localhost:8080/poi/region/${regionIn}`);
         const pois = await response.json();
-        /*pois.forEach(poi => {
-            const loc = [poi.lat,poi.lon]
-            const marker1 = L.marker(loc).addTo(map)
-            var node2 = document.createElement("p")
-            var text2 = document.createTextNode(`Name:${poi.name}    Description:${poi.description} `)
-            var revTxt = document.createElement("input")
-            revTxt.setAttribute("id","revTxt")
-            var revBtn = document.createElement("input")
-            revBtn.setAttribute("type","button")
-            revBtn.setAttribute("value","Review")
-            revBtn.setAttribute("id","revBtn")
-            node2.appendChild(text2)
-            node2.appendChild(revTxt)
-            node2.appendChild(revBtn)
-            marker1.bindPopup(node2)
-            revBtn.addEventListener("click",revPoi.bind(this,poi.id))
-            
-            var node1 = document.createElement("p")
-            var text1 = document.createTextNode(`Name: ${poi.name}      Type: ${poi.type}       Country: ${poi.country}     Region: ${poi.region}       Longitude:${poi.lon}        Latitude:${poi.lat}         Description: ${poi.description}        Recommendations:${poi.recommendations}`)
-            const recbtn = document.createElement("input")
-            recbtn.setAttribute("type","button")
-            recbtn.setAttribute("value","Recommend")
-            recbtn.setAttribute("id","recbtn")
-            node1.appendChild(text1)
-            node1.appendChild(recbtn)
-            document.getElementById("results1").appendChild(node1)
-            recbtn.addEventListener("click",recPoi.bind(this,poi))
-        })*/
         return pois
     }
     else{
@@ -223,7 +216,15 @@ async function logout(){
             }
             login(userDetails)
         })}
-
+        document.getElementById('signup').addEventListener('click', () => {
+            const newUser = {
+                username: document.getElementById('newUsername').value,
+                password: document.getElementById('newPassword').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
+            };
+        
+            signUp(newUser);
+        });
 
 
 //document.getElementById('regionsearch').addEventListener('click',()=>{

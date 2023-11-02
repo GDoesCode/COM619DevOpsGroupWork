@@ -4,7 +4,6 @@ import mysql from 'mysql';
 import * as fs from 'fs';
 import * as https from 'https';
 
-
 const app = express();
 
 const con = mysql.createConnection({
@@ -51,14 +50,14 @@ app.post('/login', (req, res) => {
         con.query('SELECT * FROM poi_users WHERE username=? AND password=?', [req.body.username, req.body.password], function (err, result, fields) {
             if (err) {
                 console.error(err);
-                res.status(500).json({ error: t("Server Error") });
+                res.status(500).json({ error: ("Server Error") });
                 return;
             }
 
             if (result.length === 1) {
                 res.status(200).json({ "username": req.body.username });
             } else {
-                res.status(401).json({ error: t("Incorrect Login!") });
+                res.status(401).json({ error: ("Incorrect Login!") });
             }
         });
     });;
@@ -73,13 +72,45 @@ app.post('/logout', (req, res) => {
 });
 
 app.use((req, res, next) => {
-    const t = req.t;
-    if (["POST", "DELETE"].indexOf(req.method) == -1) {
+    if (req.path === '/signup' && req.method === 'POST') {
+        next();
+    } else if (["POST", "DELETE"].indexOf(req.method) == -1) {
         console.log('not a post/delete, allowing access');
         next();
     } else {
-        res.status(401).json({ error: t("You're not logged in. Go Away!") });
+        res.status(401).json({ error: ("You're not logged in. Go Away!") });
     }
+});
+
+app.post('/signup', (req, res) => {
+    const { username, password, confirmPassword } = req.body;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        return res.status(400).json({ error: 'Passwords do not match' });
+    }
+
+    // Check if the username is available (not already registered)
+    con.query('SELECT username FROM poi_users WHERE username = ?', [username], function (err, result) {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Server Error' });
+        }
+
+        if (result.length > 0) {
+            return res.status(400).json({ error: 'Username is already in use' });
+        }
+
+        // If everything is okay, insert the new user into the database
+        con.query('INSERT INTO poi_users (username, password) VALUES (?, ?)', [username, password], function (err, result) {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Server Error' });
+            }
+
+            res.status(201).json({ message: 'User registered successfully' });
+        });
+    });
 });
 
 import poiRouter from './routes/poi.mjs';
