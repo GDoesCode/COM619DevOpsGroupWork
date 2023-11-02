@@ -1,51 +1,89 @@
+import mysql from 'mysql';
 class POIDao{
-    constructor(db,table){
-        this.db = db
-        this.table = table
+    constructor(){
+        this.db = mysql.createPool({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database:"pointsofinterest"
+          });
     }
-findPOIByRegion(regionIn){
-        const stmt = this.db.prepare("SELECT * FROM pointsofinterest WHERE region=?")
-        const rows = stmt.all(regionIn)
-        if(rows.length == 0){
-            return null;
-        }
-        else{
-            return rows
-        }
-};
+    findPOIByRegion(regionIn) {
+        return new Promise((resolve, reject) => {
+            this.db.getConnection((err, connection) => {
+                if (err) {
+                    reject(err);
+                }
+                const query1 = 'SELECT * FROM pointsofinterest WHERE region=?';
+                connection.query(query1, [regionIn], (err, result) => {
+                    connection.release();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+        });
+    }
 
 checkPOIID(idin){
-    const stmt = this.db.prepare("SELECT * FROM pointsofinterest WHERE id=?")
-    const rows = stmt.all(idin)
-    if (rows.length == 0){
-        return null;
-    } else{
-        return true
-    }
+    return new Promise((resolve,reject) =>{
+        this.db.getConnection((err,connection) => {
+            if(err){
+                reject(err)
+            }
+            const query1 = 'SELECT * FROM pointsofinterest WHERE id=?';
+            connection.query(query1,[idin],(err,result)=>{
+                connection.release();
+                if(err){
+                    reject(err);
+                } else{
+                    resolve(result)
+                }
+            })
+        })
+    })
 }
-
-
 createPOI(nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendationsIn){
-        const stmt = this.db.prepare(`INSERT INTO pointsofinterest(name,type,country,region,lon,lat,description,recommendations) VALUES(?,?,?,?,?,?,?,?)`)
-        const result = stmt.run(nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendationsIn)
-        if (result.changes == 1){
-            return true
-        }
-        else{
-            return false
-        }
-        
+    return new Promise((resolve,reject) =>{
+        this.db.getConnection((err,connection) =>{
+            if(err){
+                reject(err)
+            }
+            const query1 = 'INSERT INTO pointsofinterest(name,type,country,region,lon,lat,description,recommendations) VALUES(?,?,?,?,?,?,?,?)'
+            connection.query(query1,[nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendationsIn],(err,result)=>{
+                connection.release();
+                if(err){
+                    reject(err)
+                } else{
+                    if(result.changes == 1){
+                        resolve(true)
+                        //return true
+                    }
+                }
+            })
+        })
+    })     
 }
 
 recommendPOI(idIn){
-        const stmt = this.db.prepare("UPDATE pointsofinterest SET recommendations = recommendations+1 WHERE id=?")
-        const result = stmt.run(idIn)
-        if (result.changes==1){
-            return true
-        } else{
-            return false
-        }
-    
+    return new Promise((resolve,reject)=>{
+        this.db.getConnection((err,connection) =>{
+            if(err){
+                reject(err)
+            }
+            const query1 = 'UPDATE pointsofinterest SET recommendations = recommendations+1 WHERE id=?'
+            connection.query(query1,[idin],(err,result)=>{
+                connection.release();
+                if(err){
+                    reject(err)
+                } else{
+                    resolve(result)
+                }
+            })
+        })
+    })
 }
 }
 

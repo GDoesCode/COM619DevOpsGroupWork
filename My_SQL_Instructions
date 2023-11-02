@@ -1,0 +1,17 @@
+sudo yum install mysql-shell
+sudo dnf install mysql-server
+
+sudo system start mysql
+sudo systemctl enable mysqld
+
+run the below to check mysql is running:
+service mysqld status
+
+Run the install script and create a high level password:
+sudo mysql_secure_installation
+
+
+If theres an 'upgrade mysql' error you may need to run the below:
+sudo mysql -p
+[Enter password]
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
