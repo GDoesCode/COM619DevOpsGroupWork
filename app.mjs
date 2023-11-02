@@ -1,6 +1,8 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import mysql from 'mysql';
+import * as fs from 'fs';
+import * as https from 'https';
 
 
 const app = express();
@@ -83,6 +85,20 @@ app.use((req, res, next) => {
 import poiRouter from './routes/poi.mjs';
 app.use('/poi', poiRouter);
 
-app.listen(8080, () => {
-    console.log('Server is running');
-});
+https
+  .createServer(
+        {
+         key: fs.readFileSync('key.pem',
+                        {encoding: 'utf-8'}),
+         cert: fs.readFileSync('cert.pem',
+                        {encoding: 'utf-8'})
+        },
+        app
+  )
+  .listen(8080, () => {
+	console.log('Server is running');
+  });
+
+//app.listen(8080, () => {
+//    console.log('Server is running');
+//});
