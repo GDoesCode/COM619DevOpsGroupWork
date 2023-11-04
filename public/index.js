@@ -23,7 +23,7 @@ async function onStart(){
 }
 async function signUp(newUser) {
     try {
-        const response = await fetch('http://localhost:3000/signup', {
+        const response = await fetch('https://localhost:8080/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

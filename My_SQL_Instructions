@@ -15,3 +15,14 @@ If theres an 'upgrade mysql' error you may need to run the below:
 sudo mysql -p
 [Enter password]
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
+
+To set up the database while in mysql, run:
+CREATE DATABASE IF NOT EXISTS pointsofinterest;
+USE pointsofinterest;
+SHOW DATABASES; //points of interest should appear here
+FLUSH PRIVILEGES;
+
+To add the pointsofinterestdb to mysql, go into the database directory in the project folder. in there should be the pointsofinterest.sql file. Run the following and input password when prompted:
+sudo mysql -u root -p pointsofinterest < pointsofinterest.sql
+
+All the mysql databases get stored in /var/lib/mysql if you wanted to check the pointsofinterest folder is not empty. Be sure to use sudo 'ls -a' or nothing with appear.
