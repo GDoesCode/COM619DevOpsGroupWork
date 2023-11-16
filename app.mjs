@@ -9,7 +9,7 @@ const app = express();
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "C0m619D3V0ps!",
+    password: "",
     database: "pointsofinterest"
 });
 
@@ -27,6 +27,11 @@ app.use(fileUpload({
     tempFileDir: process.env.TMPDIR,
     limits: { fileSize: process.env.UPLOAD_LIMIT_IN_MB * 1024 * 1024 }
 }));
+
+app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    next();
+});
 
 app.post('/photo/upload/:id', async (req, res) => {
     try {
@@ -115,20 +120,20 @@ app.post('/signup', (req, res) => {
 import poiRouter from './routes/poi.mjs';
 app.use('/poi', poiRouter);
 
-https
-  .createServer(
-        {
-         key: fs.readFileSync('key.pem',
-                        {encoding: 'utf-8'}),
-         cert: fs.readFileSync('cert.pem',
-                        {encoding: 'utf-8'})
-        },
-        app
-  )
-  .listen(8080, () => {
-	console.log('Server is running');
-  });
+//https
+  //.createServer(
+    //    {
+      //   key: fs.readFileSync('key.pem',
+        //                {encoding: 'utf-8'}),
+         //cert: fs.readFileSync('cert.pem',
+           //             {encoding: 'utf-8'})
+        //},
+        //app
+  //)
+  //.listen(8080, () => {
+	//console.log('Server is running');
+  //});
 
-//app.listen(8080, () => {
-//    console.log('Server is running');
-//});
+app.listen(8080, () => {
+    console.log('Server is running');
+});
