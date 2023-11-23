@@ -42,6 +42,7 @@ function MapWidget({pois}){
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution: "Copyright Message"}).addTo(map1)
         map1.setView([50.90839,-1.40037],13)
         map1.on("click", async e => {
+
             document.getElementById('results1').innerHTML = `<h1>Add A POI</h1><strong>Name</strong> <input class="addS"  id="name" /><br> 
             <strong>Type</strong> <input class="addS" id="type"/><br> 
             <strong>Country</strong> <input class="addS" id="country" /><br> 
@@ -81,8 +82,8 @@ function MapWidget({pois}){
             })
         })
     },[])
-    const poiArray = Array.from(pois)
-    poiArray.forEach(poi => {
+    //const poiArray = Array.from(pois)
+    pois.forEach(poi => {
         const loc = [poi.lat,poi.lon]
             const marker1 = L.marker(loc).addTo(map1)
             map1.setView(poi,10)
@@ -123,8 +124,9 @@ function MapWidget({pois}){
             
     });
     return <div id='map1' style={{width:"700px", height:"500px"}}></div>
-
+    
 }
+
 
 
 function ResultsWidget({pois}){
