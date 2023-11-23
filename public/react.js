@@ -36,6 +36,8 @@ function InputRegion({title,passBackUserInput}){
 
 function MapWidget({pois}){
     React.useEffect(() =>{
+        if (!pois || pois.length){
+            return <div id='map1' style={{ width: "700px", height: "500px" }}>No POIs available</div>; }
         map1 = L.map("map1")
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution: "Copyright Message"}).addTo(map1)
         map1.setView([50.90839,-1.40037],13)
@@ -79,7 +81,8 @@ function MapWidget({pois}){
             })
         })
     },[])
-    pois.forEach(poi => {
+    const poiArray = Array.from(pois)
+    poiArray.forEach(poi => {
         const loc = [poi.lat,poi.lon]
             const marker1 = L.marker(loc).addTo(map1)
             map1.setView(poi,10)
@@ -120,12 +123,16 @@ function MapWidget({pois}){
             
     });
     return <div id='map1' style={{width:"700px", height:"500px"}}></div>
-    
+
 }
 
 
 function ResultsWidget({pois}){
-    const poiHtml = pois.map(poi => <li key={poi.id}>   Name: {poi.name}<br></br>      Type: {poi.type}<br></br>           Loaction: {poi.region},{poi.country} <br></br>         Co-ordinates: {poi.lon},{poi.lat} <br></br>          Description: {poi.description}<br></br>          Recommendations: {poi.recommendations} <input type="button" id="recbtn" value="Recommend" onClick={recPoi.bind(this, poi)}/> </li>)
+    if (!pois || !pois.length) {
+        return <div style={{ clear: "both" }}>No POIs found</div>;
+    }
+    const poiArray = Array.from(pois)
+    const poiHtml = poiArray.map(poi => <li key={poi.id}>   Name: {poi.name}<br></br>      Type: {poi.type}<br></br>           Loaction: {poi.region},{poi.country} <br></br>         Co-ordinates: {poi.lon},{poi.lat} <br></br>          Description: {poi.description}<br></br>          Recommendations: {poi.recommendations} <input type="button" id="recbtn" value="Recommend" onClick={recPoi.bind(this, poi)}/> </li>)
     return (
         <div style={{clear:"both"}}>Found POIs:
         <ul>

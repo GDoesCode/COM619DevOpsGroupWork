@@ -9,7 +9,7 @@ map.setView([50.90839,-1.40037],13)*/
 onStart()
 async function onStart(){
     try{
-    const response = await fetch (`http://localhost:3000/login`)
+    const response = await fetch (`https://com619jc.uksouth.cloudapp.azure.com:8080/login`)
     const loginCheck = await response.json()
     if (loginCheck.username != null){
         onLogin(loginCheck.username)
@@ -21,41 +21,34 @@ async function onStart(){
         
     }
 }
+async function signUp(newUser) {
+    try {
+        const response = await fetch('https://com619jc.uksouth.cloudapp.azure.com:8080/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+        });
+
+        if (response.status === 201) {
+            alert('Registration successful. You can now log in.');
+            // You can add code to clear the sign-up form or redirect to the login page.
+        } else {
+            const errorData = await response.json();
+            alert(`Registration failed: ${errorData.error}`);
+        }
+    } catch (e) {
+        alert(`There was an error: ${e}`);
+    }
+}
 
 async function ajaxSearch(regionIn){
     try{
         if (regionIn != null){
             if(regionIn != ""){
-        const response = await fetch(`http://localhost:3000/poi/region/${regionIn}`);
+        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/region/${regionIn}`);
         const pois = await response.json();
-        /*pois.forEach(poi => {
-            const loc = [poi.lat,poi.lon]
-            const marker1 = L.marker(loc).addTo(map)
-            var node2 = document.createElement("p")
-            var text2 = document.createTextNode(`Name:${poi.name}    Description:${poi.description} `)
-            var revTxt = document.createElement("input")
-            revTxt.setAttribute("id","revTxt")
-            var revBtn = document.createElement("input")
-            revBtn.setAttribute("type","button")
-            revBtn.setAttribute("value","Review")
-            revBtn.setAttribute("id","revBtn")
-            node2.appendChild(text2)
-            node2.appendChild(revTxt)
-            node2.appendChild(revBtn)
-            marker1.bindPopup(node2)
-            revBtn.addEventListener("click",revPoi.bind(this,poi.id))
-            
-            var node1 = document.createElement("p")
-            var text1 = document.createTextNode(`Name: ${poi.name}      Type: ${poi.type}       Country: ${poi.country}     Region: ${poi.region}       Longitude:${poi.lon}        Latitude:${poi.lat}         Description: ${poi.description}        Recommendations:${poi.recommendations}`)
-            const recbtn = document.createElement("input")
-            recbtn.setAttribute("type","button")
-            recbtn.setAttribute("value","Recommend")
-            recbtn.setAttribute("id","recbtn")
-            node1.appendChild(text1)
-            node1.appendChild(recbtn)
-            document.getElementById("results1").appendChild(node1)
-            recbtn.addEventListener("click",recPoi.bind(this,poi))
-        })*/
         return pois
     }
     else{
@@ -72,7 +65,7 @@ async function ajaxSearch(regionIn){
 
 async function addPOI(poiIn){
     try{
-        const response = await fetch(`http://localhost:3000/poi/create`,{
+        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/create`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -87,7 +80,7 @@ async function addPOI(poiIn){
 
 async function recPoi(poi){
     try{
-        const response = await fetch(`http://localhost:3000/poi/recommend/${poi.id}`,{
+        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/recommend/${poi.id}`,{
             method:"POST"
         })
         if (response.status != 200) {
@@ -108,7 +101,7 @@ async function revPoi(poi_id){
                 poi_id : poi_id,
                 review : revTxt
             }
-            const response1 = await fetch(`http://localhost:3000/poi/review`,{
+            const response1 = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/review`,{
                 method:"POST",
                 headers:{
                     'Content-Type' : 'application/json'
@@ -133,14 +126,14 @@ async function uploadPhoto(POIID){
     } else{
         const formData = new FormData();
         formData.append(`poiPhoto`,photoFiles[0])
-        const response = await fetch(`http://localhost:3000/photo/upload/${POIID}`,{
+        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/photo/upload/${POIID}`,{
             method:"POST",
             body: formData
         })
         if(response.status == 200){
             var src = document.getElementById('photo')
             var img = document.createElement("img")
-            img.src = `http://localhost:3000/uploadPics/${POIID+photoFiles[0].name}`
+            img.src = `https://com619jc.uksouth.cloudapp.azure.com:8080/uploadPics/${POIID+photoFiles[0].name}`
             src.appendChild(img)
             alert("successfully uploaded")
         } else{
@@ -157,7 +150,7 @@ async function login(userDetails){
     try{
         if (userDetails.username != null){
             if (userDetails.password != null){
-        const response = await fetch(`http://localhost:3000/login`,{
+        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/login`,{
             method:"POST",
             headers: {
                 'Content-Type' : 'application/json'
@@ -183,7 +176,7 @@ async function login(userDetails){
 }
 async function logout(){
     try{
-    const response = await fetch(`http://localhost:3000/logout`, {method:"POST"})
+    const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/logout`, {method:"POST"})
     document.getElementById('loginResults').innerHTML = `Logged Out`
     } catch(e){
         alert(`Error Logging out`)
@@ -197,7 +190,7 @@ async function logout(){
         try{
         document.getElementById('loginResults').innerHTML = `Logged In as ${username}.  <input type='button' value='Logout' id='logoutbtn' />`
         document.getElementById('logoutbtn').addEventListener('click',async()=>{
-        const response = await fetch(`http://localhost:3000/logout`, {method:"POST"})
+        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/logout`, {method:"POST"})
         onLogout()
         } )
         }catch(e){
@@ -223,7 +216,15 @@ async function logout(){
             }
             login(userDetails)
         })}
-
+        document.getElementById('signup').addEventListener('click', () => {
+            const newUser = {
+                username: document.getElementById('newUsername').value,
+                password: document.getElementById('newPassword').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
+            };
+        
+            signUp(newUser);
+        });
 
 
 //document.getElementById('regionsearch').addEventListener('click',()=>{

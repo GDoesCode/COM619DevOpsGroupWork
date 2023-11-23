@@ -1,4 +1,14 @@
-import Database from 'better-sqlite3';
+import mysql from 'mysql';
 
-const db = new Database('pointsofinterest.db');
-export default db
+//var con = mysql.createConnection({
+  //  host: "localhost",
+    //user: "root",
+    //password: "",
+    //database:"pointsofinterest"
+  //});
+
+  const db = con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+//export default con

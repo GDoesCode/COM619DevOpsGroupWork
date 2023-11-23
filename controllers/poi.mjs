@@ -2,29 +2,41 @@ import POIDao from '../dao/poi.mjs'
 import ReviewDao from '../dao/review.mjs'
 
 class PoiController{
-    constructor(db){
-        this.dao = new POIDao(db,"pointsofinterest")
-        this.dao2 = new ReviewDao(db,"poi_reviews")
+    constructor(){
+        this.dao = new POIDao()
+        this.dao2 = new ReviewDao()
     }
 
-findPOIByRegion(req,res){
-    try{ 
-        const poi = this.dao.findPOIByRegion(req.params.regionName)
-        res.json(poi)
-    } catch(error){
-        res.status(500).json({error:error})
+    findPOIByRegion(req, res) {
+        try {
+            this.dao.findPOIByRegion(req.params.regionName)
+                .then((poi) => {
+                    res.json(poi);
+                })
+                .catch((error) => {
+                    res.status(500).json({ error: error });
+                });
+        } catch (error) {
+            res.status(500).json({ error: error });
+        }
     }
-}
 
 checkPOIID(req,res){
     try{
+        this.dao.checkPOIID(req.params.id)
+        .then((poi)=>{
+            res.json(poi);
+        })
+        .catch((error)=>{
+            res.status(500).json({ error: error });
+        });
+    }catch (error){
+        res.status(500).json({ error: error });
+    }
         const poi = this.dao.checkPOIID(req.params.id)
         if (poi == true){
             res.status(200)
         }
-    } catch(error){
-        res.status(500).json({error:error})
-    }
 }
 
 
