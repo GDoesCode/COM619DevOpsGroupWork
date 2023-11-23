@@ -31,7 +31,7 @@ const sessionStore = new MySQLStore({
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "C0m619D3V0ps!",
+    //password: "C0m619D3V0ps!",
     database: "pointsofinterest",
     port: 3306,
 //    ssl: {ca: fs.readFileSync("ca.pem")}
@@ -160,20 +160,20 @@ app.post('/signup', (req, res) => {
 import poiRouter from './routes/poi.mjs';
 app.use('/poi', poiRouter);
 
-//https
-  //.createServer(
-    //    {
-      //   key: fs.readFileSync('key.pem',
-        //                {encoding: 'utf-8'}),
-         //cert: fs.readFileSync('cert.pem',
-           //             {encoding: 'utf-8'})
-        //},
-        //app
-  //)
-  //.listen(8080, () => {
-	//console.log('Server is running');
-  //});
+https
+  .createServer(
+        {
+         key: fs.readFileSync('key.pem',
+                        {encoding: 'utf-8'}),
+         cert: fs.readFileSync('cert.pem',
+                        {encoding: 'utf-8'})
+        },
+        app
+  )
+  .listen(8080, () => {
+	console.log('Server is running');
+  });
 
-app.listen(8080, () => {
-    console.log('Server is running');
-});
+//app.listen(8080, () => {
+  //  console.log('Server is running');
+//});
