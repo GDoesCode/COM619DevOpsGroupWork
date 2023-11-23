@@ -7,7 +7,7 @@ import session from "express-session";
 const pController = new POIController( mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "C0m619D3V0ps!",
     database:"pointsofinterest"
   }))
 poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pController));

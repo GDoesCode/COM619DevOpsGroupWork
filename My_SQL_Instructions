@@ -26,3 +26,6 @@ To add the pointsofinterestdb to mysql, go into the database directory in the pr
 sudo mysql -u root -p pointsofinterest < pointsofinterest.sql
 
 All the mysql databases get stored in /var/lib/mysql if you wanted to check the pointsofinterest folder is not empty. Be sure to use sudo 'ls -a' or nothing with appear.
+
+To run in Docker:
+sudo docker pull mysql/mysql-server:latest
