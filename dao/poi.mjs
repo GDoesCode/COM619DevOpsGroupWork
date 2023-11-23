@@ -4,7 +4,7 @@ class POIDao{
         this.db = mysql.createPool({
             host: "localhost",
             user: "root",
-            password: "C0m619D3V0ps!",
+            //password: "C0m619D3V0ps!",
             database:"pointsofinterest"
           });
     }
@@ -53,6 +53,28 @@ createPOI(nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendat
             }
             const query1 = 'INSERT INTO pointsofinterest(name,type,country,region,lon,lat,description,recommendations) VALUES(?,?,?,?,?,?,?,?)'
             connection.query(query1,[nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendationsIn],(err,result)=>{
+                connection.release();
+                if(err){
+                    reject(err)
+                } else{
+                    if(result.changes == 1){
+                        resolve(true)
+                        //return true
+                    }
+                }
+            })
+        })
+    })     
+}
+
+editPOI(poiID,nameIn,typeIn,countryIn,regionIn,descriptionIn,recommendationsIn){
+    return new Promise((resolve,reject) =>{
+        this.db.getConnection((err,connection) =>{
+            if(err){
+                reject(err)
+            }
+            const query1 = 'UPDATE pointsofinterest SET name = ?,type = ?,country = ?,region = ?,description = ?,recommendations = ? WHERE id = ?'
+            connection.query(query1,[nameIn,typeIn,countryIn,regionIn,descriptionIn,recommendationsIn,poiID],(err,result)=>{
                 connection.release();
                 if(err){
                     reject(err)

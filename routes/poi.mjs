@@ -12,6 +12,7 @@ const pController = new POIController( mysql.createConnection({
   }))
 poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pController));
 poiRouter.post('/create', pController.createPOI.bind(pController))
+poiRouter.post('/edit', pController.editPOI.bind(pController))
 poiRouter.post('/recommend/:id', pController.recommendPOI.bind(pController));
 poiRouter.get('/check/:id',pController.checkPOIID.bind(pController))
 poiRouter.post('/review',pController.reviewPOI.bind(pController))
