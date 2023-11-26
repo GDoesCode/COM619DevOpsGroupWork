@@ -22,7 +22,7 @@ async function openApplicationTest(){
     // If the test is successfull in opening our applciation return a log success message into the console
     console.log('Test has passed successfully :)');
 
-    // Adding a delay of 10 seconds since it kept on closing too fast to see the automation teesting
+    // Adding a delay of 10 seconds since it kept on closing too fast to see the automation testing
     await driver.sleep(10000);
 
     // Close the browser to complete the test

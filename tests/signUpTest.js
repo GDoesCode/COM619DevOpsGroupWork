@@ -2,7 +2,7 @@ const {Builder, By, Key} = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const assert = require('assert');
 
-async function signUp(){
+async function signUpTest(){
     // Setting Google Chrome driver options to ignore the SSL certificates when opening the application
     const options = new chrome.Options()
     options.addArguments('--ignore-certificate-errors');
@@ -28,15 +28,15 @@ async function signUp(){
     const expectedUrl = 'https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/';
     assert.strictEqual(actualUrl, expectedUrl, 'URL does not match expected value');
 
-    // Adding a delay of 5 seconds since it kept on closing too fast to see the automation teesting
-    await driver.sleep(5000);
+    // Adding a delay of 10 seconds since it kept on closing too fast to see the automation teesting
+    await driver.sleep(10000);
     
     // If the test is successfull in signing up on the map application return a log success message into the console
-    console.log("Signup test has passed sucessfully");
+    console.log("Sign Up test has passed successfully");
 
     // Close the browser to complete the test
     await driver.quit();
 
 }
 
-signUp()
+signUpTest()
