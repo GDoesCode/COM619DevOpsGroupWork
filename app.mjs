@@ -9,7 +9,6 @@ import * as https from 'https';
 const app = express();
 
 
-
 const MySQLStore = mysqlSession(session);
 const sessionStore = new MySQLStore({
     host: 'localhost',
@@ -34,7 +33,7 @@ const con = mysql.createConnection({
     //password: "C0m619D3V0ps!",
     database: "pointsofinterest",
     port: 3306,
-//    ssl: {ca: fs.readFileSync("ca.pem")}
+    //ssl: {ca: fs.readFileSync("ca.pem")}
 });
 
 // Establish the MySQL connection outside of route handlers
@@ -62,6 +61,13 @@ app.post('/photo/upload/:id', async(req,res) =>{
         const fileName = req.params.id + req.files.poiPhoto.name ;
         await req.files.poiPhoto.mv(`public/uploadPics/${fileName}`)
         res.status(200).json({success:1})
+        con.query('UPDATE pointsofinterest SET imgRef = (?) WHERE id = ?; ',[fileName,req.params.id],function(err,result,fields){
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: ("Server Error") });
+                return;
+            }
+        })
     } catch(e){
         throw e;
         res.status(500).json({error:e})
@@ -88,6 +94,10 @@ app.post('/login', (req, res) => {
             if (result.length === 1) {
                 // Store user information in the session
                 req.session.username = { username: req.body.username };
+                console.log(result[0].isAdmin)
+                if(result[0].isAdmin === true || result[0].isAdmin === 1){
+                    req.session.isAdmin = true
+                }
                 res.status(200).json({ "username": req.body.username });
               } else {
                 res.status(401).json({ error: 'Incorrect Login!' });
@@ -107,24 +117,34 @@ app.get('/login', (req, res) => {
 
 app.post('/logout', (req, res) => {
     req.session.username = null
+    req.session.isAdmin = false
     res.json({ 'success': 1 });
 });
 
 app.use((req, res, next) => {
+    // Allow access to signup and non-POST/DELETE requests
     if (req.path === '/signup' && req.method === 'POST') {
         next();
     } else if (["POST", "DELETE"].indexOf(req.method) == -1) {
-        console.log('not a post/delete, allowing access');
+        console.log('Not a POST/DELETE, allowing access');
         next();
     } else {
-        if (req.session.username){
-            console.log(`username exists: ${req.session.username}`)
-            next()}
-
-            else{
-        res.status(401).json({ error: ("You're not logged in. Go Away!") });}
+        // Check if user is logged in
+        if (req.session.username) {
+            // Check if user is an admin
+            if (req.session.isAdmin) {
+                console.log('User is an Admin');
+                next();
+            } else {
+                console.log(req.session.isAdmin);
+                res.status(401).json({ error: "User is not an admin" });
+            }
+        } else {
+            res.status(401).json({ error: "You're not logged in. Go away!" });
+        }
     }
 });
+
 
 app.post('/signup', (req, res) => {
     const { username, password, confirmPassword } = req.body;

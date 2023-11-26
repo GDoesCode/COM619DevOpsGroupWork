@@ -60,6 +60,23 @@ createPOI(req,res){
     }
 }
 
+editPOI(req,res){
+    try{
+        if (req.body.name != ""  && req.body.type != "" && req.body.country != "" && req.body.region != "" && req.body.description !=""){
+            if (req.body.name != null  && req.body.type != null && req.body.country != null && req.body.region != null  && req.body.description !=null){
+        const poi = this.dao.editPOI(req.body.id,req.body.name, req.body.type,req.body.country,req.body.region,req.body.description,req.body.recommendations)
+        res.status(200).json({success:1});
+            }
+            else{
+                res.status(400).json({error: req})
+            }
+        } else{
+            res.status(400).json({error: "Blank Field"})
+        }
+    } catch(error){
+        throw error;
+    }
+}
 recommendPOI(req,res){
     try{
         const result = this.dao.recommendPOI(req.params.id)

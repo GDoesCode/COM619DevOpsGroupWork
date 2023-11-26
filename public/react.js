@@ -43,6 +43,7 @@ function MapWidget({pois}){
         map1.setView([50.90839,-1.40037],13)
         map1.on("click", async e => {
 
+            
             document.getElementById('results1').innerHTML = `<h1>Add A POI</h1><strong>Name</strong> <input class="addS"  id="name" /><br> 
             <strong>Type</strong> <input class="addS" id="type"/><br> 
             <strong>Country</strong> <input class="addS" id="country" /><br> 
@@ -55,7 +56,7 @@ function MapWidget({pois}){
                 const typeIn = document.getElementById('type').value
                 const countryIn = document.getElementById('country').value
                 const regionIn = document.getElementById('region').value
-                const descriptionIn = document.getElementById('rec').value
+                const descriptionIn = document.getElementById('desc').value
                 const newPOI = {
                     name : nameIn,
                     type : typeIn,
@@ -113,10 +114,16 @@ function MapWidget({pois}){
             uploadFrm.appendChild(uploadBtn)
             uploadFrm.appendChild(photo)
 //var uploadFrm = `<form method='post' enctype='multipart/form-data'> Select your File: <input type='file' id='poiPhotos' name='poiPhoto'/> <input type='button' id='uploadBtn' value='Upload' onClick='uploadPhoto(${poi.id})'/><div id="photo"><div/></form>`
+            var editBtn = document.createElement("input")
+            editBtn.setAttribute("type","button")
+            editBtn.setAttribute("value","Edit")
+            editBtn.setAttribute("id","editBtn")
+            editBtn.setAttribute("onClick",`editPoi(${poi.id},${poi.lat},${poi.lon})`)
             node2.appendChild(text2)
             node2.appendChild(revTxt)
             node2.appendChild(revBtn)
             node2.appendChild(uploadFrm)
+            node2.appendChild(editBtn)
             //revBtn.addEventListener("click",revPoi.bind(this,poi.id))
             //uploadBtn.addEventListener("click",uploadPhoto.bind(this,poi.id))
             //node2.innerHTML +=  uploadFrm

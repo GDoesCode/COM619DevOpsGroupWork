@@ -67,6 +67,28 @@ createPOI(nameIn,typeIn,countryIn,regionIn,lonIn,latIn,descriptionIn,recommendat
     })     
 }
 
+editPOI(poiID,nameIn,typeIn,countryIn,regionIn,descriptionIn,recommendationsIn){
+    return new Promise((resolve,reject) =>{
+        this.db.getConnection((err,connection) =>{
+            if(err){
+                reject(err)
+            }
+            const query1 = 'UPDATE pointsofinterest SET name = ?,type = ?,country = ?,region = ?,description = ?,recommendations = ? WHERE id = ?'
+            connection.query(query1,[nameIn,typeIn,countryIn,regionIn,descriptionIn,recommendationsIn,poiID],(err,result)=>{
+                connection.release();
+                if(err){
+                    reject(err)
+                } else{
+                    if(result.changes == 1){
+                        resolve(true)
+                        //return true
+                    }
+                }
+            })
+        })
+    })     
+}
+
 recommendPOI(idIn){
     return new Promise((resolve,reject)=>{
         this.db.getConnection((err,connection) =>{

@@ -78,6 +78,60 @@ async function addPOI(poiIn){
         }
 }
 
+async function editPoi(poiID,poiLat,poiLon){
+    try{
+        document.getElementById('results1').innerHTML = `<h1>Edit A POI</h1><strong>Name</strong> <input class="editS"  id="name" /><br> 
+            <strong>Type</strong> <input class="editS" id="type"/><br> 
+            <strong>Country</strong> <input class="editS" id="country" /><br> 
+            <strong>Region</strong> <input class="editS" id="region" /><br> 
+            <strong>Description</strong> <input class="editS" id="desc" /><br>
+            <strong>Recommendations</strong> <input class="editS" id="rec" /><br>
+            <input type="submit" id="editPOI" value="GO!" />`
+            document.getElementById('editPOI').addEventListener("click",async()=>{
+                const nameIn = document.getElementById('name').value
+                const typeIn = document.getElementById('type').value
+                const countryIn = document.getElementById('country').value
+                const regionIn = document.getElementById('region').value
+                const descriptionIn = document.getElementById('desc').value
+                const recommendationsIn = document.getElementById('rec').value
+                const editPOI = {
+                    id: poiID,
+                    name : nameIn,
+                    type : typeIn,
+                    country : countryIn,
+                    region : regionIn,
+                    description : descriptionIn,
+                    recommendations : recommendationsIn
+                }
+                const response = await fetch(`https://localhost:8080/poi/edit`,{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(editPOI)
+        })
+            if (response.status == 200) {
+                console.log(poiLat,poiLon)
+                const marker1 = L.marker([poiLat,poiLon]).addTo(map1)
+                const text = `${editPOI.name}     Description: ${editPOI.description} `
+                marker1.bindPopup(text)
+                alert("POI Editted Successfully")
+                document.getElementById('results1').innerHTML = ""
+                
+            }
+            else {
+                const errorMessage = await response.json()
+                alert(`${response.status} : ${errorMessage.error}`)
+            }
+            })
+        }
+        catch(e) {
+            alert(`There was an error: ${e}`)
+        }
+        
+    }
+
+
 async function recPoi(poi){
     try{
         const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/recommend/${poi.id}`,{
