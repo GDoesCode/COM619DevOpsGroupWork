@@ -9,6 +9,7 @@
     "express-session": "^1.17.3",
     "express-session-better-sqlite3": "^1.2.1",
     "html": "^1.0.0",
+    "i18n": "^0.15.1",
     "i18next": "^23.6.0",
     "i18next-express-middleware": "^2.0.0",
     "i18next-node-fs-backend": "^1.2.1",

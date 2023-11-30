@@ -8,6 +8,7 @@ map.setView([50.90839,-1.40037],13)*/
 //const { response } = require("express");
 onStart()
 async function onStart(){
+
     try{
     const response = await fetch (`https://localhost:8080/login`)
     const loginCheck = await response.json()
@@ -142,6 +143,21 @@ async function recPoi(poi){
         }
         else {
             alert("You Recommended A POI")
+        }
+    } catch(e) {
+        alert(`There was an error111: ${e}`)
+    }
+}
+async function deletePOI(poiID){
+    try{
+        const response = await fetch(`https://localhost:8080/poi/delete/${poiID}`,{
+            method:"POST"
+        })
+        if (response.status != 200) {
+            alert("Error Deleting POI")
+        }
+        else {
+            alert("You Deleted A POI")
         }
     } catch(e) {
         alert(`There was an error111: ${e}`)

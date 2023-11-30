@@ -7,6 +7,7 @@ import * as fs from 'fs';
 import * as https from 'https';
 
 const app = express();
+import path from 'path'
 
 
 const MySQLStore = mysqlSession(session);
@@ -74,11 +75,16 @@ app.post('/photo/upload/:id', async(req,res) =>{
     }
 })
 
+
+//app.set('view engine', 'html');
 app.use(express.json());
 app.use(express.static('public'));
-app.set('view engine', 'html');
 app.use(express.urlencoded({ extended: false }));
 
+// Routes
+app.get('/gdpr', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'public', 'gdpr.html'));
+});
 
 
 
@@ -137,7 +143,8 @@ app.use((req, res, next) => {
                 next();
             } else {
                 console.log(req.session.isAdmin);
-                res.status(401).json({ error: "User is not an admin" });
+                next()
+                //res.status(401).json({ error: "User is not an admin" });
             }
         } else {
             res.status(401).json({ error: "You're not logged in. Go away!" });

@@ -1,0 +1,6 @@
+{
+    "SELECT * FROM poi_users WHERE username=? AND password=?": "SELECT * FROM poi_users WHERE username=? AND password=?",
+  "INSERT INTO poi_users (username, password,isAdmin) VALUES (?, ?,?)": "INSERT INTO poi_users (username, password,isAdmin) VALUES (?, ?,?)",
+  "SELECT * FROM pointsofinterest WHERE region=?" : "SELECT * FROM pointsofinterest WHERE region=?",
+  "Hello User" : "Hello User"
+}

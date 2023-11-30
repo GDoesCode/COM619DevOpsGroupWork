@@ -96,7 +96,7 @@ recommendPOI(idIn){
                 reject(err)
             }
             const query1 = 'UPDATE pointsofinterest SET recommendations = recommendations+1 WHERE id=?'
-            connection.query(query1,[idin],(err,result)=>{
+            connection.query(query1,[idIn],(err,result)=>{
                 connection.release();
                 if(err){
                     reject(err)
@@ -107,6 +107,28 @@ recommendPOI(idIn){
         })
     })
 }
+
+deletePOIById(poiId) {
+    return new Promise((resolve, reject) => {
+        this.db.getConnection((err, connection) => {
+            if (err) {
+                reject(err);
+            }
+            const query1 = 'DELETE FROM pointsofinterest WHERE id = ?';
+            connection.query(query1, [poiId], (queryErr, result) => {
+                connection.release(); // Instead of connection.end()
+
+                if (queryErr) {
+                    console.error('Error executing DELETE query:', queryErr);
+                    reject(queryErr);
+                } else {
+                    resolve(result); // Only pass the result to resolve
+                }
+            });
+        });
+    });
+}
+
 }
 
 

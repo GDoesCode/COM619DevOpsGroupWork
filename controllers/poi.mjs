@@ -39,6 +39,26 @@ checkPOIID(req,res){
         }
 }
 
+deletePOIById(req, res) {
+    try {
+        console.log(req.params.id)
+        this.dao.deletePOIById(req.params.id)
+            .then(result => {
+                // Handle success, send a response, etc.
+                res.status(200).json({ message: 'POI deleted successfully.', result });
+            })
+            .catch(error => {
+                // Handle errors, send an error response, etc.
+                console.error('Error deleting POI:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            });
+    } catch (error) {
+        // Handle synchronous errors (unlikely in an asynchronous context)
+        console.error('Synchronous error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 
 
 
@@ -80,6 +100,7 @@ editPOI(req,res){
 recommendPOI(req,res){
     try{
         const result = this.dao.recommendPOI(req.params.id)
+        //console.log(req.params.id)
         if (result == true){
             res.status(200).json({success:1})
         } else{
