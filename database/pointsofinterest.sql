@@ -48,9 +48,8 @@ DROP TABLE IF EXISTS `poi_users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `poi_users` (
   `id` tinyint(4) DEFAULT NULL,
-  `username` varchar(32) DEFAULT NULL,
-  `password` varchar(32) DEFAULT NULL,
-  `isAdmin` varchar(32) DEFAULT NULL
+  `username` varchar(4) DEFAULT NULL,
+  `password` varchar(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -72,16 +71,15 @@ DROP TABLE IF EXISTS `pointsofinterest`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pointsofinterest` (
-  `id` smallint(32) DEFAULT NULL,
+  `id` smallint(6) DEFAULT NULL,
   `name` varchar(41) DEFAULT NULL,
   `type` varchar(36) DEFAULT NULL,
   `country` varchar(36) DEFAULT NULL,
   `region` varchar(36) DEFAULT NULL,
-  `lon` varchar(32) DEFAULT NULL,
-  `lat` varchar(32) DEFAULT NULL,
+  `lon` varchar(11) DEFAULT NULL,
+  `lat` varchar(9) DEFAULT NULL,
   `description` varchar(51) DEFAULT NULL,
-  `recommendations` varchar(32) DEFAULT NULL,
-   `imgRef` varchar (32) DEFUALT NULL
+  `recommendations` varchar(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -14,7 +14,7 @@ const MySQLStore = mysqlSession(session);
 const sessionStore = new MySQLStore({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'C0m619D3V0ps!',
     database: 'sessions', // Create a separate database for sessions
     clearExpired: true,
     checkExpirationInterval: 900000, // How frequently expired sessions will be cleared (in milliseconds)
@@ -31,7 +31,7 @@ const sessionStore = new MySQLStore({
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    //password: "C0m619D3V0ps!",
+    password: "C0m619D3V0ps!",
     database: "pointsofinterest",
     port: 3306,
     //ssl: {ca: fs.readFileSync("ca.pem")}
