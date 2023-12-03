@@ -104,7 +104,7 @@ async function editPoi(poiID,poiLat,poiLon){
                     description : descriptionIn,
                     recommendations : recommendationsIn
                 }
-                const response = await fetch(`https://localhost:8080/poi/edit`,{
+                const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/edit`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -150,7 +150,7 @@ async function recPoi(poi){
 }
 async function deletePOI(poiID){
     try{
-        const response = await fetch(`https://localhost:8080/poi/delete/${poiID}`,{
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/delete/${poiID}`,{
             method:"POST"
         })
         if (response.status != 200) {
