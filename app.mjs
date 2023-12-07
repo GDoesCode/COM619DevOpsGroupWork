@@ -156,16 +156,19 @@ app.use((req, res, next) => {
                 console.log('User is an Admin');
                 next();
             } else {
-                console.log(req.session.isAdmin);
-                next()
-                //res.status(401).json({ error: "User is not an admin" });
+                if (req.path.startsWith('/poi/delete/') || req.path.startsWith('/poi/edit/')) {
+                    res.status(401).json({ error: "User is not an admin. Access denied." });
+                    console.log("User is not an admin. Access denied.")
+                } else {
+                    // Allow access for non-admin users to other POST/DELETE requests
+                    next();
+                }
             }
         } else {
             res.status(401).json({ error: "You're not logged in. Go away!" });
         }
     }
 });
-
 
 app.post('/signup', (req, res) => {
     const { username, password, confirmPassword } = req.body;
