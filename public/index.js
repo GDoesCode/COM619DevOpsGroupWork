@@ -139,7 +139,7 @@ async function recPoi(poi){
             method:"POST"
         })
         if (response.status != 200) {
-            alert("Error Recommending POI")
+            alert("Coming in a future update!")
         }
         else {
             alert("You Recommended A POI")
@@ -148,16 +148,20 @@ async function recPoi(poi){
         alert(`There was an error111: ${e}`)
     }
 }
+
 async function deletePOI(poiID){
     try{
         const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/delete/${poiID}`,{
             method:"POST"
         })
-        if (response.status != 200) {
-            alert("Error Deleting POI")
+        if (response.status == 401) {
+            alert("User is not an Admin and therefore can't delete or edit a POI")
         }
-        else {
+        else if (response.status == 200) {
             alert("You Deleted A POI")
+        }
+        else{
+            alert("Error Deleting POI")
         }
     } catch(e) {
         alert(`There was an error111: ${e}`)

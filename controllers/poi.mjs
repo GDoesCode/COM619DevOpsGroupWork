@@ -59,11 +59,11 @@ deletePOIById(req, res) {
         this.dao.deletePOIById(req.params.id)
             .then(result => {
                 // Handle success, send a response, etc.
-                res.status(200).json({ message: 'POI deleted successfully.', result });
+                res.status(200).json({ message: 'POI deleted successfully.\nPlease reload the page to review changes', result });
             })
             .catch(error => {
                 // Handle errors, send an error response, etc.
-                console.error('Error deleting POI:', error);
+                console.error('You are not logged in, go away!:', error);
                 res.status(500).json({ error: 'Internal Server Error' });
             });
     } catch (error) {
