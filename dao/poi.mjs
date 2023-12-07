@@ -18,7 +18,7 @@ class POIDao{
         this.db = mysql.createPool({
             host: "localhost",
             user: "root",
-            //password: "C0m619D3V0ps!",
+            password: "C0m619D3V0ps!",
             database:"pointsofinterest"
           });
     }

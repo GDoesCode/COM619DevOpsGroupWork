@@ -29,3 +29,6 @@ All the mysql databases get stored in /var/lib/mysql if you wanted to check the 
 
 To run in Docker:
 sudo docker pull mysql/mysql-server:latest
+
+Add Admin Users:
+ALTER TABLE poi_users ADD isAdmin varchar(32)
