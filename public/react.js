@@ -1,3 +1,17 @@
+// <!-- Copyright [2023] [NodeNinjas]
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+
+//     http://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License. -->
+
 function AppWidget({title}){
     const [pois,setPOIs] = React.useState([])
     function updatePOIs(pois){
@@ -42,6 +56,8 @@ function MapWidget({pois}){
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution: "Copyright Message"}).addTo(map1)
         map1.setView([50.90839,-1.40037],13)
         map1.on("click", async e => {
+
+            
             document.getElementById('results1').innerHTML = `<h1>Add A POI</h1><strong>Name</strong> <input class="addS"  id="name" /><br> 
             <strong>Type</strong> <input class="addS" id="type"/><br> 
             <strong>Country</strong> <input class="addS" id="country" /><br> 
@@ -54,7 +70,7 @@ function MapWidget({pois}){
                 const typeIn = document.getElementById('type').value
                 const countryIn = document.getElementById('country').value
                 const regionIn = document.getElementById('region').value
-                const descriptionIn = document.getElementById('rec').value
+                const descriptionIn = document.getElementById('desc').value
                 const newPOI = {
                     name : nameIn,
                     type : typeIn,
@@ -81,8 +97,8 @@ function MapWidget({pois}){
             })
         })
     },[])
-    const poiArray = Array.from(pois)
-    poiArray.forEach(poi => {
+    //const poiArray = Array.from(pois)
+    pois.forEach(poi => {
         const loc = [poi.lat,poi.lon]
             const marker1 = L.marker(loc).addTo(map1)
             map1.setView(poi,10)
@@ -112,10 +128,22 @@ function MapWidget({pois}){
             uploadFrm.appendChild(uploadBtn)
             uploadFrm.appendChild(photo)
 //var uploadFrm = `<form method='post' enctype='multipart/form-data'> Select your File: <input type='file' id='poiPhotos' name='poiPhoto'/> <input type='button' id='uploadBtn' value='Upload' onClick='uploadPhoto(${poi.id})'/><div id="photo"><div/></form>`
+            var editBtn = document.createElement("input")
+            editBtn.setAttribute("type","button")
+            editBtn.setAttribute("value","Edit")
+            editBtn.setAttribute("id","editBtn")
+            editBtn.setAttribute("onClick",`editPoi(${poi.id},${poi.lat},${poi.lon})`)
+            var deleteBtn = document.createElement("input")
+            deleteBtn.setAttribute("type","button")
+            deleteBtn.setAttribute("value","Delete")
+            deleteBtn.setAttribute("id","deleteBtn")
+            deleteBtn.setAttribute("onClick",`deletePOI(${poi.id})`)
             node2.appendChild(text2)
             node2.appendChild(revTxt)
             node2.appendChild(revBtn)
             node2.appendChild(uploadFrm)
+            node2.appendChild(editBtn)
+            node2.appendChild(deleteBtn)
             //revBtn.addEventListener("click",revPoi.bind(this,poi.id))
             //uploadBtn.addEventListener("click",uploadPhoto.bind(this,poi.id))
             //node2.innerHTML +=  uploadFrm
@@ -123,8 +151,9 @@ function MapWidget({pois}){
             
     });
     return <div id='map1' style={{width:"700px", height:"500px"}}></div>
-
+    
 }
+
 
 
 function ResultsWidget({pois}){

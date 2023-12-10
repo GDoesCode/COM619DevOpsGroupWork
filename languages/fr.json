@@ -1,0 +1,5 @@
+{
+    "SELECT * FROM poi_users WHERE username=? AND password=?": "SÉLECTIONNER * À PARTIR DE poi_users WHERE username=? ET mot de passe=?",
+  "INSERT INTO poi_users (username, password,isAdmin) VALUES (?, ?,?)": "INSÉRER DANS poi_users (nom d'utilisateur, mot de passe, isAdmin) VALEURS (?, ?,?)",
+  "SELECT * FROM pointsofinterest WHERE region=?" : ""
+}

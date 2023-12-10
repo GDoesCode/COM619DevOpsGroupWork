@@ -8,8 +8,9 @@ map.setView([50.90839,-1.40037],13)*/
 //const { response } = require("express");
 onStart()
 async function onStart(){
+
     try{
-    const response = await fetch (`https://com619jc.uksouth.cloudapp.azure.com:8080/login`)
+    const response = await fetch (`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/login`)
     const loginCheck = await response.json()
     if (loginCheck.username != null){
         onLogin(loginCheck.username)
@@ -23,7 +24,7 @@ async function onStart(){
 }
 async function signUp(newUser) {
     try {
-        const response = await fetch('https://com619jc.uksouth.cloudapp.azure.com:8080/signup', {
+        const response = await fetch('https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ async function ajaxSearch(regionIn){
     try{
         if (regionIn != null){
             if(regionIn != ""){
-        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/region/${regionIn}`);
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/region/${regionIn}`);
         const pois = await response.json();
         return pois
     }
@@ -65,7 +66,7 @@ async function ajaxSearch(regionIn){
 
 async function addPOI(poiIn){
     try{
-        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/create`,{
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/create`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -78,16 +79,89 @@ async function addPOI(poiIn){
         }
 }
 
+async function editPoi(poiID,poiLat,poiLon){
+    try{
+        document.getElementById('results1').innerHTML = `<h1>Edit A POI</h1><strong>Name</strong> <input class="editS"  id="name" /><br> 
+            <strong>Type</strong> <input class="editS" id="type"/><br> 
+            <strong>Country</strong> <input class="editS" id="country" /><br> 
+            <strong>Region</strong> <input class="editS" id="region" /><br> 
+            <strong>Description</strong> <input class="editS" id="desc" /><br>
+            <strong>Recommendations</strong> <input class="editS" id="rec" /><br>
+            <input type="submit" id="editPOI" value="GO!" />`
+            document.getElementById('editPOI').addEventListener("click",async()=>{
+                const nameIn = document.getElementById('name').value
+                const typeIn = document.getElementById('type').value
+                const countryIn = document.getElementById('country').value
+                const regionIn = document.getElementById('region').value
+                const descriptionIn = document.getElementById('desc').value
+                const recommendationsIn = document.getElementById('rec').value
+                const editPOI = {
+                    id: poiID,
+                    name : nameIn,
+                    type : typeIn,
+                    country : countryIn,
+                    region : regionIn,
+                    description : descriptionIn,
+                    recommendations : recommendationsIn
+                }
+                const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/edit`,{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(editPOI)
+        })
+            if (response.status == 200) {
+                console.log(poiLat,poiLon)
+                const marker1 = L.marker([poiLat,poiLon]).addTo(map1)
+                const text = `${editPOI.name}     Description: ${editPOI.description} `
+                marker1.bindPopup(text)
+                alert("POI Editted Successfully")
+                document.getElementById('results1').innerHTML = ""
+                
+            }
+            else {
+                const errorMessage = await response.json()
+                alert(`${response.status} : ${errorMessage.error}`)
+            }
+            })
+        }
+        catch(e) {
+            alert(`There was an error: ${e}`)
+        }
+        
+    }
+
+
 async function recPoi(poi){
     try{
-        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/recommend/${poi.id}`,{
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/recommend/${poi.id}`,{
             method:"POST"
         })
         if (response.status != 200) {
-            alert("Error Recommending POI")
+            alert("Coming in a future update!")
         }
         else {
             alert("You Recommended A POI")
+        }
+    } catch(e) {
+        alert(`There was an error111: ${e}`)
+    }
+}
+
+async function deletePOI(poiID){
+    try{
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/delete/${poiID}`,{
+            method:"POST"
+        })
+        if (response.status == 401) {
+            alert("User is not an Admin and therefore can't delete or edit a POI")
+        }
+        else if (response.status == 200) {
+            alert("You Deleted A POI")
+        }
+        else{
+            alert("Error Deleting POI")
         }
     } catch(e) {
         alert(`There was an error111: ${e}`)
@@ -101,7 +175,7 @@ async function revPoi(poi_id){
                 poi_id : poi_id,
                 review : revTxt
             }
-            const response1 = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/poi/review`,{
+            const response1 = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/poi/review`,{
                 method:"POST",
                 headers:{
                     'Content-Type' : 'application/json'
@@ -126,14 +200,14 @@ async function uploadPhoto(POIID){
     } else{
         const formData = new FormData();
         formData.append(`poiPhoto`,photoFiles[0])
-        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/photo/upload/${POIID}`,{
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/photo/upload/${POIID}`,{
             method:"POST",
             body: formData
         })
         if(response.status == 200){
             var src = document.getElementById('photo')
             var img = document.createElement("img")
-            img.src = `https://com619jc.uksouth.cloudapp.azure.com:8080/uploadPics/${POIID+photoFiles[0].name}`
+            img.src = `https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/uploadPics/${POIID+photoFiles[0].name}`
             src.appendChild(img)
             alert("successfully uploaded")
         } else{
@@ -150,7 +224,7 @@ async function login(userDetails){
     try{
         if (userDetails.username != null){
             if (userDetails.password != null){
-        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/login`,{
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/login`,{
             method:"POST",
             headers: {
                 'Content-Type' : 'application/json'
@@ -176,7 +250,7 @@ async function login(userDetails){
 }
 async function logout(){
     try{
-    const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/logout`, {method:"POST"})
+    const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/logout`, {method:"POST"})
     document.getElementById('loginResults').innerHTML = `Logged Out`
     } catch(e){
         alert(`Error Logging out`)
@@ -190,7 +264,7 @@ async function logout(){
         try{
         document.getElementById('loginResults').innerHTML = `Logged In as ${username}.  <input type='button' value='Logout' id='logoutbtn' />`
         document.getElementById('logoutbtn').addEventListener('click',async()=>{
-        const response = await fetch(`https://com619jc.uksouth.cloudapp.azure.com:8080/logout`, {method:"POST"})
+        const response = await fetch(`https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/logout`, {method:"POST"})
         onLogout()
         } )
         }catch(e){
