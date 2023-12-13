@@ -22,8 +22,8 @@ export const initialiseSwagger = (app) => {
                 securitySchemes: {
                     bearerAuth: {
                         type: 'http',
-                        scheme: 'bearer',
-                        bearerFormat: 'JWT'
+                        scheme: 'Admin',
+                        bearerFormat: 'admin'
                     }
                 }
             }
