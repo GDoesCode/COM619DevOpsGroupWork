@@ -23,7 +23,8 @@ import * as https from 'https';
 const app = express();
 import path from 'path'
 
-import { initialiseSwagger } from './swagger.js';
+import pkg from './swagger.js';
+const { initialiseSwagger } = pkg;
 
 initialiseSwagger(app);
 
