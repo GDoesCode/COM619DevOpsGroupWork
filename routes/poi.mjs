@@ -27,35 +27,48 @@ const pController = new POIController( mysql.createConnection({
 
 /**
  * @openapi
- * components:
- *   schemas:
- *     Poi:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *         type:
- *           type: string
- *         country:
- *           type: string
- *         region:
- *           type: string
- *         lat:
- *           type: number
- *         lon:
- *           type: number
- *         description:
- *           type: string
- *         user:
- *           type: string
- *           format: uuid
- *       required:
- *         - name
- *         - lat
- *         - lon
+ * /pois/region/{regionName}:
+ *   get:
+ *     tags: [POI]
+ *     summary: Get a list of POIs in a specified region.
+ *     security:
+ *       - basicAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of POIs in a region
+ *       401:
+ *         description: Unauthorized!
+ *       500:
+ *         description: Server Error
  */
 
 poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pController));
+
+/**
+ * @openapi
+ * /pois/createPoi:
+ *   post:
+ *     tags: [POI]
+ *     summary: Create a new POI.
+ *     security:
+ *       - basicAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Poi'
+ *     responses:
+ *       200:
+ *         description: A list of POIs in a region.
+ *       400:
+ *         description: Bad request. Check request payload.
+ *       401:
+ *         description: Unauthorized!
+ *       500:
+ *         description: Server Error.
+ */
+
 poiRouter.post('/create', pController.createPOI.bind(pController));
 poiRouter.post('/edit', pController.editPOI.bind(pController));
 poiRouter.post('/recommend/:id', pController.recommendPOI.bind(pController));
