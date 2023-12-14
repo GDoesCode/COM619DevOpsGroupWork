@@ -27,6 +27,39 @@ const pController = new POIController( mysql.createConnection({
 
 /**
  * @openapi
+ * components:
+ *   schemas:
+ *     Poi:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         type:
+ *           type: string
+ *         country:
+ *           type: string
+ *         region:
+ *           type: string
+ *         lon:
+ *           type: number
+ *         lat:
+ *           type: number
+ *         description:
+ *           type: string
+ *         recommendations:
+ *           type: integer
+ *         imgRef:
+ *           type: string
+ *       required:
+ *         - name
+ *         - lat
+ *         - lon
+ */
+
+/**
+ * @openapi
  * /pois/region/{regionName}:
  *   get:
  *     tags: [POI]
