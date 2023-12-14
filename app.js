@@ -23,14 +23,8 @@ import * as https from 'https';
 const app = express();
 import path from 'path'
 
-const SwaggerUI = require('swagger-ui');
-const swaggerJsDoc = require('swagger-jsdoc');
-
-import pkg from './swagger_options';
-const { configuration } = pkg;
-const specification = swaggerJsDoc(configuration);
-app.use('/swagger', SwaggerUI.serve, SwaggerUI.setup(specification));
-
+import { configureSwagger } from './swagger';
+configureSwagger(app);
 
 const MySQLStore = mysqlSession(session);
 const sessionStore = new MySQLStore({
