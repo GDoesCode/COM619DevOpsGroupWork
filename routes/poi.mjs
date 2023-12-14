@@ -24,6 +24,37 @@ const pController = new POIController( mysql.createConnection({
     password: "C0m619D3V0ps!",
     database:"pointsofinterest"
   }))
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Poi:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         type:
+ *           type: string
+ *         country:
+ *           type: string
+ *         region:
+ *           type: string
+ *         lat:
+ *           type: number
+ *         lon:
+ *           type: number
+ *         description:
+ *           type: string
+ *         user:
+ *           type: string
+ *           format: uuid
+ *       required:
+ *         - name
+ *         - lat
+ *         - lon
+ */
+
 poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pController));
 poiRouter.post('/create', pController.createPOI.bind(pController));
 poiRouter.post('/edit', pController.editPOI.bind(pController));
