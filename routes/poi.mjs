@@ -18,13 +18,14 @@ import mysql from 'mysql';
 //import db from '../database/db.mjs'
 import POIController from '../controllers/poi.mjs';
 import session from "express-session";
-const pController = new POIController( mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "C0m619D3V0ps!",
-    database:"pointsofinterest"
-  }))
+const pController = new POIController(mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "C0m619D3V0ps!",
+  database:"pointsofinterest"
+}));
 
+import app from "..app.mjs"
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
