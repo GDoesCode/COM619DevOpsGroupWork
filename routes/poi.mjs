@@ -46,7 +46,7 @@ poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pControlle
 
 /**
  * @openapi
- * /pois/createPoi:
+ * /pois/create:
  *   post:
  *     tags: [POI]
  *     summary: Create a new POI.
@@ -59,7 +59,7 @@ poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pControlle
  *           schema:
  *             $ref: '#/components/schemas/Poi'
  *     responses:
- *       200:
+ *       201:
  *         description: A list of POIs in a region.
  *       400:
  *         description: Bad request. Check request payload.
@@ -70,6 +70,32 @@ poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pControlle
  */
 
 poiRouter.post('/create', pController.createPOI.bind(pController));
+
+/**
+ * @openapi
+ * /pois/edit:
+ *   post:
+ *     tags: [POI]
+ *     summary: Edit a POI.
+ *     security:
+ *       - basicAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Poi'
+ *     responses:
+ *       201:
+ *         description: A list of POIs in a region.
+ *       400:
+ *         description: Bad request. Check request payload.
+ *       401:
+ *         description: Unauthorized!
+ *       500:
+ *         description: Server Error.
+ */
+
 poiRouter.post('/edit', pController.editPOI.bind(pController));
 poiRouter.post('/recommend/:id', pController.recommendPOI.bind(pController));
 poiRouter.get('/check/:id',pController.checkPOIID.bind(pController));
