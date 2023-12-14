@@ -33,7 +33,7 @@ export const configureSwagger = (app) => {
                 }
             }
         },
-        apis: ['.routes/*.mjs']
+        apis: ['./routes/*.mjs']
     };
 
     const swaggerSpec = swaggerJSDoc(options);
