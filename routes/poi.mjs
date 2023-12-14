@@ -68,7 +68,7 @@ const pController = new POIController( mysql.createConnection({
  *         required: true
  *         description: Name of the region.
  *         schema:
- *           $ref: '#/components/schemas/Poi/region'
+ *           type: string
  *     responses:
  *       200:
  *         description: A list of POIs in a region
