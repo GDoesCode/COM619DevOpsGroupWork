@@ -23,7 +23,7 @@ import * as https from 'https';
 const app = express();
 import path from 'path'
 
-import { configureSwagger } from './swagger.js';
+import { configureSwagger } from './swagger.mjs';
 configureSwagger(app);
 
 const MySQLStore = mysqlSession(session);
