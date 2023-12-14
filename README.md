@@ -8,6 +8,8 @@ That is the basics of the features and functionality of the NodeNinja's Open Sou
 
 We also have created a video demonstration of our technologies users, features and functionality of this project's Open Source Mapping Application: [Click here to view out demo](https://youtube.com)
 
+***
+
 ### Team Node Ninjas Team Roles
 
 | Name & Github Profile  | Email Contact  | Role Within Project|
@@ -18,6 +20,18 @@ We also have created a video demonstration of our technologies users, features a
 |Josh Clarke **(https://github.com/JoshC98)**|**5clarj31@solent.ac.uk**| Scrum Master, Cloud Solution and Deployment for Mapping Application|
 |Jacob Shattock **(https://github.com/jacob-shattock-solent)**|**5shatj38@solent.ac.uk**|Monitoring of Mapping Application|
 
+***
+
+### Project Kanban Boards
+
+Within our project we utilised two Kanban boards. One Kanban board which was our main primary Kanban board which included all the tasks that we were working on and we can view the status of each task within the Kanban swim lane to see the progress off the ticket.
+#### [Main Kanban Project Task Board](https://github.com/users/GDoesCode/projects/1)
+
+Alongside our Main Kanban Project Task Board, we utilised a simple Kanban board that just had 3 sections To Do, In Progress and Done, we utilised this requirements board just to keep up with the progress off each project requirement that was stated in the assessment brief in this project.
+#### [Requirements Task Board](https://github.com/users/GDoesCode/projects/2/views/1)
+
+***
+
 ### Technologies Used for this project.
 * To host the application and store the database that supported our application, we utilised Microsoft Azure cloud solutions to host and store our application and database.
 * The application is securely hosted on https using a self signed certificate created using OpenSSL.
@@ -26,6 +40,8 @@ We also have created a video demonstration of our technologies users, features a
 * Collaboration technologies that were utilised was Microsoft Teams for voice and text communication with the team, the team also utilised GitHub for code collaboration work, visualising project and workflows and finally for wiki documentation of our application.
 * For integration and unit testing utilised Selenium Web driver and Selenium IDE, for mobile UAT testing used personal mobile devices.
 
-## Contact Us 
+***
+
+### Contact Us 
 
 If you have any questions or queries regarding the project, the application or regarding contributing the project, please contact our project manager Danny Agha [5aghad30@solent.ac.uk](mailto:5aghad30@solent.ac.uk) to discuss regarding your queries or questions regarding the Open Source Mapping Application or our Project.
