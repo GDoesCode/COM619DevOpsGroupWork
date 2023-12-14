@@ -22,5 +22,5 @@ definition: {
             }
         }
     }
-},
+}
 apis: ['.routes/poi.mjs']

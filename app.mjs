@@ -26,7 +26,7 @@ import path from 'path'
 const SwaggerUI = require('swagger-ui');
 const swaggerJsDoc = require('swagger-jsdoc');
 
-import pkg from './swagger_options.yaml';
+import pkg from './swagger_options';
 const { configuration } = pkg;
 const specification = swaggerJsDoc(configuration);
 app.use('/swagger', SwaggerUI.serve, SwaggerUI.setup(specification));
