@@ -27,7 +27,7 @@ export const configureSwagger = (app) => {
             components: {
                 securitySchemes: {
                     basicAuth: {
-                        type: basic
+                        type: 'basic'
                     }
                 }
             }
