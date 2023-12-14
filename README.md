@@ -2,7 +2,7 @@
 
 Our Project Application Mapping Application which allows users to view Points Of Interest that have been added by our users. The application allows you to search for Points Of Interest by a specific region that is stored on the Mapping Application's MySQL Database, allows a standard user to add a Point Of interest to the Mapping Application's MySQL Database that can be viewed by others and finally admins have the ability to edit and delete any Points Of Interests that are stored on the Mapping Application. 
 
-That is the basics of the features and functionality of the NodeNinja's Open Source Mapping Applciation there are more features and functionality that we have documented and explained within our wiki page. Also with our GitHub wiki page we have documentated and explained the use of of our development technologies for our Mapping Application, how to run the application locally and on azure, how to contribute to our Open Source project and various other documentation to help you get a better understanding off our project and Mapping Application.
+That is the basics of the features and functionality of the NodeNinja's Open Source Mapping Applciation, there are more features and functionality that we have documented and explained within our wiki page. Also with our GitHub wiki page we have documentated and explained the use of our development technologies for our Mapping Application, how to run the application locally and on azure, how to contribute to our Open Source project and various other documentation to help you get a better understanding off our project and Mapping Application.
 
 [Click here to view our project's GitHub wiki documentation page](https://github.com/GDoesCode/COM619DevOpsGroupWork/wiki)
 
