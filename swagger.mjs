@@ -18,7 +18,7 @@ export const configureSwagger = (app) => {
             },
             servers: [
                 {
-                    url: 'https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com'
+                    url: 'https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080'
                 },
                 {
                     url: 'http://localhost:8080'
@@ -33,7 +33,7 @@ export const configureSwagger = (app) => {
                 }
             }
         },
-        apis: ['.routes/poi.mjs']
+        apis: ['.routes/*.mjs']
     };
 
     const swaggerSpec = swaggerJSDoc(options);
