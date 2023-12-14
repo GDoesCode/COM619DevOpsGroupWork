@@ -1,4 +1,4 @@
-import SwaggerUI from 'swagger-ui-express';
+import SwaggerUI from 'swagger-ui';
 import swaggerJSDoc from 'swagger-jsdoc';
 
 export const configureSwagger = (app) => {
