@@ -18,7 +18,7 @@ export const configureSwagger = (app) => {
             },
             servers: [
                 {
-                    url: 'https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080'
+                    url: 'https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com'
                 },
                 {
                     url: 'http://localhost:8080'
