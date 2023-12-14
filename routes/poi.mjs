@@ -25,6 +25,12 @@ const pController = new POIController( mysql.createConnection({
     database:"pointsofinterest"
   }))
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 /**
  * @openapi
  * components:
@@ -78,7 +84,9 @@ const pController = new POIController( mysql.createConnection({
  *         description: Server Error
  */
 
-poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pController));
+poiRouter.get('/region/:regionName', function(req, res, next) {
+  pController.findPOIByRegion.bind(pController);
+});
 
 /**
  * @openapi
@@ -105,7 +113,9 @@ poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pControlle
  *         description: Server Error.
  */
 
-poiRouter.post('/create', pController.createPOI.bind(pController));
+poiRouter.post('/create', function(req, res, next) {
+  pController.createPOI.bind(pController);
+});
 
 /**
  * @openapi
