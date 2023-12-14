@@ -5,7 +5,7 @@ import basicAuth from "express-basic-auth";
 export const configureSwagger = (app) => {
     const basicAuthMiddleware = basicAuth({
         users: { 'Admin': 'admin' },
-        challenge: true
+        challenge: false
     });
 
     const options = {
@@ -27,7 +27,8 @@ export const configureSwagger = (app) => {
             components: {
                 securitySchemes: {
                     basicAuth: {
-                        type: 'basic'
+                        type: 'http',
+                        scheme: 'basic'
                     }
                 }
             }
