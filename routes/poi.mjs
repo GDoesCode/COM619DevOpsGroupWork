@@ -25,7 +25,7 @@ const pController = new POIController(mysql.createConnection({
   database:"pointsofinterest"
 }));
 
-import app from "../app.mjs"
+const app = express();
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
