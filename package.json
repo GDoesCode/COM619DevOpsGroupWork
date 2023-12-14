@@ -16,7 +16,7 @@
     "leaflet": "^1.9.3",
     "mysql": "^2.18.1",
     "selenium-webdriver": "^4.15.0",
-    "swagger-ui-express": "5.0.0",
-    "swagger-jsdoc": "6.2.8"
+    "swagger-ui-express": "^5.0.0",
+    "swagger-jsdoc": "^6.2.8"
   }
 }
