@@ -66,6 +66,13 @@ const pController = new POIController( mysql.createConnection({
  *     summary: Get a list of POIs in a specified region.
  *     security:
  *       - basicAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: regionName
+ *         required: true
+ *         description: Name of the region.
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: A list of POIs in a region
@@ -93,7 +100,7 @@ poiRouter.get('/region/:regionName', pController.findPOIByRegion.bind(pControlle
  *             $ref: '#/components/schemas/Poi'
  *     responses:
  *       201:
- *         description: A list of POIs in a region.
+ *         description: Created a new POI.
  *       400:
  *         description: Bad request. Check request payload.
  *       401:
@@ -120,7 +127,7 @@ poiRouter.post('/create', pController.createPOI.bind(pController));
  *             $ref: '#/components/schemas/Poi'
  *     responses:
  *       201:
- *         description: A list of POIs in a region.
+ *         description: POI information updated.
  *       400:
  *         description: Bad request. Check request payload.
  *       401:
@@ -132,6 +139,39 @@ poiRouter.post('/create', pController.createPOI.bind(pController));
 poiRouter.post('/edit', pController.editPOI.bind(pController));
 poiRouter.post('/recommend/:id', pController.recommendPOI.bind(pController));
 poiRouter.get('/check/:id',pController.checkPOIID.bind(pController));
+
+/**
+ * @openapi
+ * /pois/delete/{id}:
+ *   post:
+ *     tags: [POI]
+ *     summary: Delete a POI.
+ *     security:
+ *       - basicAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Point of Interest
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Poi'
+ *     responses:
+ *       201:
+ *         description: POI deleted.
+ *       400:
+ *         description: Bad request. Check request payload.
+ *       401:
+ *         description: Unauthorized!
+ *       500:
+ *         description: Server Error.
+ */
+
 poiRouter.post('/delete/:id',pController.deletePOIById.bind(pController));
 poiRouter.post('/review',pController.reviewPOI.bind(pController));
 export default poiRouter
