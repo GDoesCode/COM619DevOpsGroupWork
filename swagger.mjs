@@ -1,5 +1,6 @@
 import SwaggerUI from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
+import basicAuth from "express-basic-auth";
 
 export const configureSwagger = (app) => {
     const basicAuthMiddleware = basicAuth({
