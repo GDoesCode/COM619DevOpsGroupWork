@@ -28,4 +28,4 @@ We also have created a video demonstration of our technologies users, features a
 
 ## Contact Us 
 
-If you have any questions or queries regarding the project, the application or regarding contributing the project, please contact our project manager Danny Agha [5aghad30@solent.ac.uk](mailto:5aghad30@solent.ac.uk) to discuss regarding your queries or questions.
+If you have any questions or queries regarding the project, the application or regarding contributing the project, please contact our project manager Danny Agha [5aghad30@solent.ac.uk](mailto:5aghad30@solent.ac.uk) to discuss regarding your queries or questions regarding the Open Source Mapping Application or our Project.
