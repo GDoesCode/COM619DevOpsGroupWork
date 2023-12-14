@@ -52,10 +52,6 @@ const pController = new POIController( mysql.createConnection({
  *           type: integer
  *         imgRef:
  *           type: string
- *       required:
- *         - name
- *         - lat
- *         - lon
  */
 
 /**
@@ -72,7 +68,7 @@ const pController = new POIController( mysql.createConnection({
  *         required: true
  *         description: Name of the region.
  *         schema:
- *           type: string
+ *           $ref: '#/components/schemas/Poi'
  *     responses:
  *       200:
  *         description: A list of POIs in a region
