@@ -1,5 +1,5 @@
-const SwaggerUI = require('swagger-ui');
-const swaggerJsDoc = require('swagger-jsdoc');
+import SwaggerUI from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
 
 export const configureSwagger = (app) => {
     const basicAuthMiddleware = basicAuth({
@@ -34,7 +34,7 @@ export const configureSwagger = (app) => {
         apis: ['.routes/poi.mjs']
     };
 
-    const swaggerSpec = swaggerJsDoc(options);
+    const swaggerSpec = swaggerJSDoc(options);
     app.use('/swagger', SwaggerUI.serve, SwaggerUI.setup(swaggerSpec));
     app.use(basicAuthMiddleware);
 };
