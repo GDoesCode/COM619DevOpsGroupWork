@@ -65,7 +65,7 @@ const pController = new POIController(mysql.createConnection({
  * tags:
  *   name: POIs
  *   description: API managing Points Of Interest.
- * /region/:regionName:
+ * /region/{regionName}:
  *   get:
  *     tags: [POIs]
  *     summary: Get a list of POIs in a specified region.
