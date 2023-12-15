@@ -1,4 +1,6 @@
-# Team NodeNinja's Open Source Application Project ReadMe
+# Team NodeNinja's Open Source Mapping Application Project ReadMe
+
+### [Click Here to to view our Mapping Application](https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080)
 
 Our Project Application Mapping Application which allows users to view Points Of Interest that have been added by our users. The application allows you to search for Points Of Interest by a specific region that is stored on the Mapping Application's MySQL Database, allows a standard user to add a Point Of interest to the Mapping Application's MySQL Database that can be viewed by others and finally admins have the ability to edit and delete any Points Of Interests that are stored on the Mapping Application. 
 
@@ -6,7 +8,9 @@ That is the basics of the features and functionality of the NodeNinja's Open Sou
 
 [Click here to view our project's GitHub wiki documentation page](https://github.com/GDoesCode/COM619DevOpsGroupWork/wiki)
 
-We also have created a video demonstration of our technologies users, features and functionality of this project's Open Source Mapping Application: [Click here to view out demo](https://youtube.com)
+We also have created a video demonstration of our technologies users, features and functionality of this project's Open Source Mapping Application: [Click here to view our demo](https://www.youtube.com/watch?v=E8dvDzoHQ0c&ab_channel=JoshuaClarke)
+
+
 
 ***
 
