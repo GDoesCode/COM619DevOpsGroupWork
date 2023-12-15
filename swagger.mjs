@@ -13,7 +13,7 @@
 // limitations under the License. -->
 
 import SwaggerUI from "swagger-ui-express";
-import swaggerJSDoc from "swagger-jsdoc";
+import SwaggerJSDoc from "swagger-jsdoc";
 import basicAuth from "express-basic-auth";
 
 export const configureSwagger = (app) => {
@@ -50,7 +50,7 @@ export const configureSwagger = (app) => {
         apis: ['./routes/*.mjs']
     };
 
-    const swaggerSpec = swaggerJSDoc(options);
+    const swaggerSpec = SwaggerJSDoc(options);
     app.use('/swagger', SwaggerUI.serve, SwaggerUI.setup(swaggerSpec));
     app.use(basicAuthMiddleware);
 };

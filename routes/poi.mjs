@@ -38,6 +38,12 @@ app.use(function(req, res, next) {
  *   schemas:
  *     Poi:
  *       type: object
+ *       required:
+ *         - name
+ *         - type
+ *         - country
+ *         - lon
+ *         - lat
  *       properties:
  *         id:
  *           type: integer
@@ -63,6 +69,12 @@ app.use(function(req, res, next) {
 
 /**
  * @openapi
+ * tags:
+ *   name: POIs
+ *   description: The POI managing API.
+ * /pois/region/{regionName}:
+ * 
+ * 
  * /pois/region/{regionName}:
  *   get:
  *     tags: [POI]
@@ -79,6 +91,12 @@ app.use(function(req, res, next) {
  *     responses:
  *       200:
  *         description: A list of POIs in a region
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/POIs
  *       401:
  *         description: Unauthorized!
  *       500:
