@@ -69,9 +69,12 @@ app.use(function(req, res, next) {
 
 /**
  * @openapi
+ * tags:
+ *   name: POIs
+ *   description: API managing Points Of Interest.
  * /region/{regionName}:
  *   get:
- *     tags: [POI]
+ *     tags: [POIs]
  *     summary: Get a list of POIs in a specified region.
  *     parameters:
  *       - in: path
