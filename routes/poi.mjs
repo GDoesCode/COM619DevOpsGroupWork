@@ -123,7 +123,7 @@ poiRouter.post('/create', pController.createPOI.bind(pController));
 /**
  * @openapi
  * /pois/edit:
- *   post:
+ *   edit:
  *     tags: [POIs]
  *     summary: Edit a POI.
  *     security:
@@ -152,7 +152,7 @@ poiRouter.get('/check/:id',pController.checkPOIID.bind(pController));
 /**
  * @openapi
  * /pois/delete/{id}:
- *   post:
+ *   delete:
  *     tags: [POIs]
  *     summary: Delete a POI.
  *     security:
