@@ -25,13 +25,6 @@ const pController = new POIController(mysql.createConnection({
   database:"pointsofinterest"
 }));
 
-const app = express();
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://opennms1uksouthcloudazureapp.brazilsouth.cloudapp.azure.com:8080/swagger");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 /**
  * @openapi
  * components:
@@ -98,15 +91,13 @@ app.use(function(req, res, next) {
  *         description: Server Error
  */
 
-poiRouter.get('/region/:regionName', function(req, res, next) {
-  pController.findPOIByRegion.bind(pController);
-});
+poiRouter.get('/region/:regionName',pController.findPOIByRegion.bind(pController));
 
 /**
  * @openapi
  * /pois/create:
  *   post:
- *     tags: [POI]
+ *     tags: [POIs]
  *     summary: Create a new POI.
  *     security:
  *       - basicAuth: []
@@ -127,15 +118,13 @@ poiRouter.get('/region/:regionName', function(req, res, next) {
  *         description: Server Error.
  */
 
-poiRouter.post('/create', function(req, res, next) {
-  pController.createPOI.bind(pController);
-});
+poiRouter.post('/create', pController.createPOI.bind(pController));
 
 /**
  * @openapi
  * /pois/edit:
  *   post:
- *     tags: [POI]
+ *     tags: [POIs]
  *     summary: Edit a POI.
  *     security:
  *       - basicAuth: []
@@ -164,7 +153,7 @@ poiRouter.get('/check/:id',pController.checkPOIID.bind(pController));
  * @openapi
  * /pois/delete/{id}:
  *   post:
- *     tags: [POI]
+ *     tags: [POIs]
  *     summary: Delete a POI.
  *     security:
  *       - basicAuth: []
