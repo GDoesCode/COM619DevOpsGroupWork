@@ -73,9 +73,6 @@ app.use(function(req, res, next) {
  *   name: POIs
  *   description: The POI managing API.
  * /pois/region/{regionName}:
- * 
- * 
- * /pois/region/{regionName}:
  *   get:
  *     tags: [POI]
  *     summary: Get a list of POIs in a specified region.
@@ -96,7 +93,7 @@ app.use(function(req, res, next) {
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/POIs
+ *                 $ref: '#/components/schemas/POIs'
  *       401:
  *         description: Unauthorized!
  *       500:
