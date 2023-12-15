@@ -106,7 +106,7 @@ poiRouter.get('/region/:regionName',pController.findPOIByRegion.bind(pController
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Poi'
+ *             $ref: '#/components/schemas/POI'
  *     responses:
  *       201:
  *         description: Created a new POI.
@@ -123,7 +123,7 @@ poiRouter.post('/create', pController.createPOI.bind(pController));
 /**
  * @openapi
  * /pois/edit:
- *   edit:
+ *   post:
  *     tags: [POIs]
  *     summary: Edit a POI.
  *     security:
@@ -133,7 +133,7 @@ poiRouter.post('/create', pController.createPOI.bind(pController));
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Poi'
+ *             $ref: '#/components/schemas/POI'
  *     responses:
  *       201:
  *         description: POI information updated.
@@ -169,7 +169,7 @@ poiRouter.get('/check/:id',pController.checkPOIID.bind(pController));
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Poi'
+ *             $ref: '#/components/schemas/POI'
  *     responses:
  *       201:
  *         description: POI deleted.
