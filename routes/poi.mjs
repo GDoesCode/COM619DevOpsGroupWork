@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
  * @openapi
  * components:
  *   schemas:
- *     Poi:
+ *     POI:
  *       type: object
  *       required:
  *         - name
@@ -93,7 +93,7 @@ app.use(function(req, res, next) {
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/POIs'
+ *                 $ref: '#/components/schemas/POI'
  *       401:
  *         description: Unauthorized!
  *       500:
