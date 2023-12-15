@@ -69,22 +69,10 @@ app.use(function(req, res, next) {
 
 /**
  * @openapi
- * tags:
- *   name: POIs
- *   description: The POI managing API.
- * /pois/region/{regionName}:
+ * /pois:
  *   get:
  *     tags: [POI]
  *     summary: Get a list of POIs in a specified region.
- *     security:
- *       - basicAuth: []
- *     parameters:
- *       - in: path
- *         name: regionName
- *         required: true
- *         description: Name of the region.
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         description: A list of POIs in a region
