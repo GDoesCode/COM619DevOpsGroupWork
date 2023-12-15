@@ -23,6 +23,8 @@ import * as https from 'https';
 const app = express();
 import path from 'path'
 
+import { configureSwagger } from './swagger.mjs';
+configureSwagger(app);
 
 const MySQLStore = mysqlSession(session);
 const sessionStore = new MySQLStore({
@@ -99,8 +101,6 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/gdpr', (req, res) => {
   res.sendFile(path.join(process.cwd(), 'public', 'gdpr.html'));
 });
-
-
 
 app.post('/login', (req, res) => {
     const t = req.t;
